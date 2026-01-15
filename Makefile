@@ -27,9 +27,6 @@ $(NAME): $(OBJ)
 
 obj:
 	mkdir -p obj
-	mkdir -p obj/Builtins/
-	mkdir -p obj/Execution/
-	mkdir -p obj/Signals/
 
 0
 obj/%.o: src/%.c | obj
