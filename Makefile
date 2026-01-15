@@ -12,27 +12,39 @@
 
 NAME := miniRT
 
-SRC := src/main.c
+SRC := src/app_destroy.c \
+src/app_init.c \
+src/err.c \
+src/main.c \
+src/utils2.c \
+src/utils3.c \
+src/utils.c
 
 OBJ := $(SRC:src/%.c=obj/%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -Isrc -MMD -MP
+CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx -MMD -MP $(CF)
+LDFLAGS := -L. -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $^ -o $@
+$(NAME): $(OBJ) libmlx.a
+	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
+
+libmlx.a:
+	+$(MAKE) -j12 -C ./minilibx
+	mv minilibx/libmlx.a ./libmlx.a
 
 obj:
 	mkdir -p obj
 
-0
 obj/%.o: src/%.c | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
+	$(MAKE) -C ./minilibx clean
+	$(RM) libmlx.a
 	rm -rf obj
 
 fclean: clean
