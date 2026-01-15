@@ -12,4 +12,5 @@ void	fatal_error(t_app *app, char const *msg)
 	if (msg)
 		(void)write_exact(2, msg, slen(msg));
 	app_destroy(app);
+	exit(1);
 }
