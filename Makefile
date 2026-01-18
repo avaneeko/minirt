@@ -20,14 +20,18 @@ src/err.c \
 src/main.c \
 src/utils2.c \
 src/utils3.c \
-src/utils.c
+src/utils.c \
+src/v3-0.c \
+src/v3-1.c \
+src/v3-2.c \
+src/v3-3.c
 
 OBJ := $(SRC:src/%.c=obj/%.o)
 
 CC := cc
 
 CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx -MMD -MP $(CF)
-LDFLAGS := -L. -lmlx -lXext -lX11 $(LDF)
+LDFLAGS := -L. -lm -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)
 
