@@ -12,8 +12,10 @@
 
 NAME := miniRT
 
-SRC := src/app_destroy.c \
+SRC := \
+src/app_destroy.c \
 src/app_init.c \
+src/app_run.c \
 src/err.c \
 src/main.c \
 src/utils2.c \
@@ -33,7 +35,7 @@ $(NAME): $(OBJ) libmlx.a
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
 libmlx.a:
-	+$(MAKE) -j12 -C ./minilibx
+	+$(MAKE) -C ./minilibx
 	mv minilibx/libmlx.a ./libmlx.a
 
 obj:

@@ -6,15 +6,7 @@
 # include "minitypes.h"
 # include "utils.h"
 # include "error_messages.h"
-
-struct s_app
-{
-	void	*mlx;	/* MLX ptr. */
-	void	*wnd;	/* MLX Window. */
-	void	**fb;	/* Frame buffer ptr array. */
-	t_u8	fb_cnt;	/* Frame buffer count. */
-};
-typedef struct s_app	t_app;
+# include "app_def.h"
 
 /**
  * App initialization.
@@ -24,6 +16,12 @@ app_init(t_app *app, int argc, char const **argv);
 
 void
 app_destroy(t_app const *app);
+
+/**
+ * Starts the event polling of the app.
+ */
+void
+app_run(t_app const *app);
 
 /*																			*/
 /*	Display the error, clean up and exit.									*/

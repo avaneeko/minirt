@@ -28,6 +28,24 @@ int	c_fb(void *mlx, t_u8 *fb_cnt, void ***fb)
 }
 
 /**
+ * This hook is called when `X` (aka 'close') is pressed.
+ */
+static
+void	hk_end(void *param)
+{
+	mlx_loop_end(param);
+}
+
+/**
+ * Registers necessary hooks.
+ */
+static
+void	register_hooks(void *mlx, void *wnd)
+{
+	mlx_hook(wnd, 17, 0, (void *)hk_end, mlx);
+}
+
+/**
  * `app` is assumed to be fully uninitialized.
  */
 void	app_init(t_app *app, int argc, char const **argv)
@@ -44,4 +62,5 @@ void	app_init(t_app *app, int argc, char const **argv)
 		fatal_error(app, ERR_FATAL_MLX_WND_FAIL);
 	if (not c_fb(app->mlx, &app->fb_cnt, &app->fb))
 		fatal_error(app, ERR_FATAL_MLX_FB_FAIL);
+	register_hooks(app->mlx, app->wnd);
 }
