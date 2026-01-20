@@ -8,6 +8,17 @@
 // sphere or plane cylinder
 
 #include <stdio.h>
+
+void parse_line(char *line)
+{
+	
+}
+
+void parse_error(int code, char *s)
+{
+	printf("%s\n", s);
+	exit(code);
+}
 static bool file_end_with_rt(char *filename)
 {
 	int	len;
@@ -28,16 +39,17 @@ void parsing(t_scene *scene, int ac, char *filename)
 	char *line;
 	int fd;
 	if (ac != 2)
-		exit (EXIT_FAILURE);
+		parse_error(EXIT_FAILURE, "argc must be 2");
 	if (!file_end_with_rt(filename))
-		exit (EXIT_FAILURE);
+		parse_error(EXIT_FAILURE, "file must end with .rt");
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		exit (EXIT_FAILURE);
+		parse_error(EXIT_FAILURE, "file open failed");
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("%s", line);
+		parse_line(line);
+		//printf("%s", line);
 		if (line == NULL)
 			break;
 	}

@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/20 17:27:53 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/01/20 17:30:25 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ $(NAME): $(OBJ)
 obj:
 	mkdir -p obj
 	mkdir -p obj/src/
-	mkdir -p obj/parsing/
-	mkdir -p obj/utils/
+	mkdir -p obj/src/parsing/
+	mkdir -p obj/src/utils/
 	mkdir -p obj/get_next_line/src/
 
 obj/%.o: %.c | obj
