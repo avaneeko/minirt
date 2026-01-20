@@ -6,21 +6,19 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/15 17:54:30 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/01/20 17:27:53 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := miniRT
+NAME = miniRT
 
 SRC := src/main.c \
 		src/parsing/parsing.c \
 		src/utils/string_utils.c \
+		get_next_line/src/get_next_line.c \
+		get_next_line/src/get_next_line_utils.c
 
-GNL_SRC := get_next_line/src/get_next_line.c get_next_line/src/get_next_line_utils.c \
-
-SRCS := $ $(SRC) $(GNL_SRCS)
-
-OBJ := $(SRCS:src/%.c=obj/%.o)
+OBJ := $(SRC:%.c=obj/%.o)
 
 CC := cc
 
@@ -33,10 +31,12 @@ $(NAME): $(OBJ)
 
 obj:
 	mkdir -p obj
+	mkdir -p obj/src/
 	mkdir -p obj/parsing/
 	mkdir -p obj/utils/
+	mkdir -p obj/get_next_line/src/
 
-obj/%.o: src/%.c | obj
+obj/%.o: %.c | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
