@@ -53,14 +53,15 @@ void	app_init(t_app *app, int argc, char const **argv)
 	(void)argc;
 	(void)argv;
 	app->fb_cnt = 0;
+	app->fpq = 0;
 	app->mlx = mlx_init();
 	if (not app->mlx)
-		fatal_error(app, ERR_FATAL_MLX_FAIL);
+		app_fatal_error(app, ERR_FATAL_MLX_FAIL);
 	app->wnd = mlx_new_window(app->mlx,
 		WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	if (not app->wnd)
-		fatal_error(app, ERR_FATAL_MLX_WND_FAIL);
+		app_fatal_error(app, ERR_FATAL_MLX_WND_FAIL);
 	if (not c_fb(app->mlx, &app->fb_cnt, &app->fb))
-		fatal_error(app, ERR_FATAL_MLX_FB_FAIL);
+		app_fatal_error(app, ERR_FATAL_MLX_FB_FAIL);
 	register_hooks(app->mlx, app->wnd);
 }

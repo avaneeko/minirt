@@ -1,5 +1,7 @@
-#include "minirt.h"
+#include "app.h"
+#include "utils.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 /**
  * Fatal error defines an application termination point that conveys the error
@@ -7,7 +9,7 @@
  * the application and gracefully exits the program.
  */
 
-void	fatal_error(t_app *app, char const *msg)
+void	app_fatal_error(t_app *app, char const *msg)
 {
 	if (msg)
 		(void)write_exact(2, msg, slen(msg));

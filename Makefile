@@ -14,6 +14,7 @@ NAME := miniRT
 
 SRC := \
 src/app_destroy.c \
+src/app_hook_add.c \
 src/app_init.c \
 src/app_run.c \
 src/err.c \
