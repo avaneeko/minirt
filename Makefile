@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/21 17:12:56 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/01/22 14:14:56 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,10 @@ NAME = miniRT
 
 SRC := src/main.c \
 		src/parsing/parsing.c \
+		src/parsing/parse_ambient.c \
+		src/parsing/parse_camera.c \
+		src/parsing/parse_light.c \
+		src/parsing/parse_error.c \
 		src/utils/string_utils.c \
 		src/utils/ft_split.c \
 		src/utils/number_utils.c \

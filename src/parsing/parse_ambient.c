@@ -38,14 +38,9 @@ void parse_ambient(t_world *world, char *line)
 	}
 	if (tok_count != 3)
 		parse_error(EXIT_FAILURE, "Color format 255,255,255");
-	world->A.color.r = parse_number(color[0]);
-	world->A.color.g = parse_number(color[1]);
-	world->A.color.b = parse_number(color[2]);
-	if (world->A.color.r > 255.0 || world->A.color.r < 0.0 || world->A.color.g > 255.0 || world->A.color.g < 0.0 || world->A.color.b > 255.0 || world->A.color.g < 0.0)
+	world->A.a_color.r = parse_number(color[0]);
+	world->A.a_color.g = parse_number(color[1]);
+	world->A.a_color.b = parse_number(color[2]);
+	if (world->A.a_color.r > 255.0 || world->A.a_color.r < 0.0 || world->A.a_color.g > 255.0 || world->A.a_color.g < 0.0 || world->A.a_color.b > 255.0 || world->A.a_color.g < 0.0)
 		parse_error(EXIT_FAILURE, "Color range 0 - 255");
-	printf("ratio: %f\n", world->A.ratio);
-	printf("color r %f\n", world->A.color.r);
-	printf("color g %f\n", world->A.color.g);
-	printf("color b %f\n", world->A.color.b);
-
 }
