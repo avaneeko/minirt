@@ -2,9 +2,15 @@
 # define CONFIG_H
 
 /* Window dimensions in pixels */
-#define WINDOW_WIDTH 800
-#define WINDOW_HEIGHT 600
+# ifndef WINDOW_WIDTH
+#  define WINDOW_WIDTH 800
+# endif
+# ifndef WINDOW_HEIGHT
+#  define WINDOW_HEIGHT 600
+# endif
 
-#define WINDOW_TITLE "miniRT"
+# ifndef WINDOW_TITLE
+#  define WINDOW_TITLE "miniRT"
+# endif
 
 #endif

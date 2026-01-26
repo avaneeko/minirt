@@ -17,6 +17,8 @@ src/app_destroy.c \
 src/app_hook_add.c \
 src/app_init.c \
 src/app_run.c \
+src/cam.c \
+src/dbg_wrld.c \
 src/err.c \
 src/main.c \
 src/utils2.c \
