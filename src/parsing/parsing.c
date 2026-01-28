@@ -20,7 +20,7 @@
 // }
 void parse_line(t_world *world, char *line)
 {
-	
+
 	if (!line) //skip extra spaces and empty lines or \n
 		return ; //FIX ME
 	if (line[0] == 'A')
@@ -53,26 +53,52 @@ static bool file_end_with_rt(char *filename)
 	return (true);
 }
 
-char *normalize_line(char *old_line)
+void copy_line(t_trim *t)
 {
-	char *line;
-	int  i;
-	int  j;
+	if (ft_isspace(t->old_line[t->i]))
+	{
+		(t->spaces)++;
+		(t->i)++;
+		if (t->spaces == 1)
+		{
+			t->line[t->j] = ' ';
+			(t->j)++;
+		}
+	}
+	else
+	{
+		t->spaces = 0;
+		t->line[t->j] = t->old_line[t->i];
+		(t->j)++;
+		(t->i)++;
+	}
+}
 
-	i = 0;
-	j = 0;
+char *trim_line(char *old_line)
+{
+	t_trim	t;
+	char	*line;
+
 	if (!old_line)
 		return (NULL);
+
 	line = malloc(ft_strlen(old_line) + 1);
 	if (!line)
 		parse_error(EXIT_FAILURE, "malloc fail");
-	while (ft_isspace(old_line[i]))
-		i++;
-	while (old_line[i])
-	{
-		
-		i++;
-	}
+
+	t.old_line = old_line;
+	t.line = line;
+	t.i = 0;
+	t.j = 0;
+	t.spaces = 0;
+	while (ft_isspace(old_line[t.i]))
+		t.i++;
+	while (old_line[t.i] != '\0')
+		copy_line(&t);
+	if (t.j > 0 && t.line[t.j - 1] == ' ')
+		t.j--;
+	line[t.j] = '\0';
+	free(old_line);
 	return (line);
 }
 
@@ -93,8 +119,7 @@ void parsing(t_world *world, int ac, char *filename)
 		old_line = get_next_line(fd);
 		if (old_line == NULL)
 			break;
-		line = normalize(line);
-		free(old_line);
+		line = trim_line(old_line);
 		parse_line(world, line);
 		free(line);
 	}

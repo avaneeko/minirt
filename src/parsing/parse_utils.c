@@ -31,8 +31,15 @@ void free_split(char **arr)
 	arr = NULL;
 }
 
+void check_unit_vector(t_vec3 v, char *err_msg)
+{
+	if (v.x < -1.0 || v.x > 1.0 || v.y < -1.0 || v.y > 1.0 || v.z < -1.0 || v.z > 1.0)
+		parse_error(EXIT_FAILURE, err_msg);
+	if (v.x == 0.0 && v.y == 0.0 && v.z == 0.0)
+		parse_error(EXIT_FAILURE, err_msg);
+}
 t_vec3 parse_vec3(char *tok)
-{	
+{
 	t_vec3 vec;
 	int tok_count;
 	char **vec_arr;

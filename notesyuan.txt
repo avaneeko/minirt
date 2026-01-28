@@ -6,9 +6,3 @@ Vector must NOT be (0,0,0)
 Vector must be normalized (length ≈ 1)
 sqrt(x*x + y*y + z*z) ≈ 1
 
-
-B️⃣ Missing validations (should fix)
-6. Normal / axis vectors are not checked for zero vector ⚠️
-if (vec.x == 0.0 && vec.y == 0.0 && vec.z == 0.0)
-	parse_error(EXIT_FAILURE, "Vector cannot be 0,0,0");
-

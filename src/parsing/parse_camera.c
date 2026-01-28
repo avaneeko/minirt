@@ -33,7 +33,7 @@ void parse_camera(t_world *world, char *line)
 {
 	int tok_count;
 	char **toks;
-	
+
 	if (world->C.is_set == true)
 		parse_error(EXIT_FAILURE, "Only one camera set allowed");
 	tok_count = 0;
@@ -45,12 +45,11 @@ void parse_camera(t_world *world, char *line)
 		tok_count++;
 	if (tok_count != 4)
 		parse_error(EXIT_FAILURE, "Camera position needs 4 tokens");
-	// parse view point 
+	// parse view point
 	world->C.vpoint = parse_vec3(toks[1]);
 	//parse orientation vector, can it be all 0?
 	world->C.orien = parse_vec3(toks[2]);
-	if (world->C.orien.x > 1.0 || world->C.orien.x < -1.0 || world->C.orien.y > 1.0 || world->C.orien.y < -1.0 || world->C.orien.z > 1.0 || world->C.orien.z < -1.0)
-		parse_error(EXIT_FAILURE, "Orientation vector format 0.0,0.0,-1.0");
+	check_unit_vector(world->C.orien, "Camera orientation vector invalid");
 	//parse fov
 	world->C.fov = parse_number(toks[3]);
 	if (world->C.fov < 0 || world->C.fov > 180)

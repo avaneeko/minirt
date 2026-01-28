@@ -8,6 +8,15 @@
 #include <stdio.h>
 #include "get_next_line.h"
 
+typedef struct s_trim
+{
+	int   i;
+	int   j;
+	int   spaces;
+	char *old_line;
+	char *line;
+} t_trim;
+
 typedef struct s_color
 {
 	float r;
@@ -71,14 +80,14 @@ typedef struct s_cylinder
 typedef struct  s_objs
 {
 	t_sphere *sp;
-	uint32_t		sphere_len;
-	uint32_t		sphere_cap;
+	float		sphere_len;
+	float		sphere_cap;
 	t_plane  *pl;
-	uint32_t		pl_len;
-	uint32_t		pl_cap;
+	float		pl_len;
+	float		pl_cap;
 	t_cylinder *cy;
-	uint32_t		cy_len;
-	uint32_t		cy_cap;
+	float		cy_len;
+	float		cy_cap;
 }	t_objs;
 
 typedef struct s_world
@@ -119,6 +128,7 @@ double	parse_number(const char *str);
 
 //parsing/parse_utils.c
 void world_init(t_world *world);
+void check_unit_vector(t_vec3 v, char *err_msg);
 t_color parse_color(char *tok);
 t_vec3 parse_vec3(char *tok);
 void	free_split(char **arr);
