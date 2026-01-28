@@ -13,11 +13,23 @@
 struct s_sphere;
 typedef struct s_sphere t_sphere;
 
+struct s_plane;
+typedef struct s_plane t_plane;
+
+struct s_cylinder;
+typedef struct s_cylinder t_cylinder;
+
 struct s_objs
 {
 	t_sphere	*spheres;
 	t_u32		sphere_len;
 	t_u32		sphere_cap;
+	t_plane		*planes;
+	t_u32		plane_len;
+	t_u32		plane_cap;
+	t_cylinder	*cylinders;
+	t_u32		cylinder_len;
+	t_u32		cylinder_cap;
 };
 typedef struct s_objs t_objs;
 

@@ -19,17 +19,25 @@ void draw(t_app *app, t_world const *world);
 void try_present(t_app *app);
 t_ray ray_from_pixel(t_cam const *cam, int x, int y);
 
-/**
- * This is not correct, since it traces an infinite unbound ray from
- * the camera front and back at the same time.
-*/
-int hit_sphere(t_sphere const *sp, t_ray const *r) {
-	t_v3 oc; v3_sub(&sp->pos, &r->pos, &oc);
-	t_f32 a = v3_dot(&r->dir, &r->dir);
-	t_f32 b = -2.0 * v3_dot(&r->dir, &oc);
-	t_f32 c = v3_dot(&oc, &oc) - sp->r*sp->r;
-	t_f32 discriminant = b*b - 4*a*c;
-	return (discriminant >= 0);
+int	ray_intersect_sphere(t_sphere const *sp, t_ray const *r) {
+	t_v3 oc;
+	t_f32 a;
+	t_f32 b;
+	t_f32 c;
+	t_f32 discriminant;
+
+	v3_sub(&sp->pos, &r->pos, &oc);
+	a = v3_dot(&r->dir, &r->dir);
+	b = -2.0 * v3_dot(&r->dir, &oc);
+	c = v3_dot(&oc, &oc) - sp->r*sp->r;
+	discriminant = b*b - 4*a*c;
+
+	if (discriminant < 0.0f)
+		return 0;
+	discriminant = sqrtf(discriminant);
+
+	return (((-b - discriminant) / (2.0f * a)) > 1e-4f
+		or ((-b + discriminant) / (2.0f * a)) > 1e-4f);
 }
 
 void think(void *param)
@@ -82,7 +90,7 @@ void draw(t_app *app, t_world const *world)
 		for (t_u32 x = 0; x < WINDOW_WIDTH; x++)
 		{
 			t_ray const ray = ray_from_pixel(&world->cam, x, y);
-			if (hit_sphere(world->objs.spheres + 0, &ray))
+			if (ray_intersect_sphere(world->objs.spheres + 0, &ray))
 				px[y*WINDOW_WIDTH + x] = mk_col_xrgb(255 * ((float)x / (WINDOW_WIDTH-1)), 0, 255 * ((float)y / (WINDOW_HEIGHT-1)));
 		}
 	}
