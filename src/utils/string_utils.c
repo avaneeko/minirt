@@ -38,7 +38,7 @@ int ft_strlen(const char *s)
 	return  (i);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int	ft_strcmp(char const*s1, char *s2)
 {
 	int	i;
 

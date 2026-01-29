@@ -18,28 +18,28 @@
 
 // 	}
 // }
-void parse_line(t_world *world, char *line)
+void parse_line(t_pworld *pworld, char *line)
 {
 
 	if (!line) //skip extra spaces and empty lines or \n
 		return ; //FIX ME
 	if (line[0] == 'A')
-		parse_ambient(world, line);
+		parse_ambient(pworld, line);
 	else if (line[0] == 'C')
-	 	parse_camera(world, line);
+	 	parse_camera(pworld, line);
 	else if (line[0] == 'L')
-	 	parse_light(world, line);
+	 	parse_light(pworld, line);
 	else if (line[0] == 's' && line[1] == 'p')
-	 	parse_sphere(world, line);
+	 	parse_sphere(line);
 	else if (line[0] == 'p' && line[1] == 'l')
-	 	parse_plane(world,line);
+	 	parse_plane(line);
 	else if (line[0] =='c' && line[1] == 'y')
-	 	parse_cylinder(world, line);
+	 	parse_cylinder(line);
 	else
 		parse_error(EXIT_FAILURE, "Map error, cannot parse content");
 }
 
-static bool file_end_with_rt(char *filename)
+static bool file_end_with_rt(char const*filename)
 {
 	int	len;
 
@@ -53,7 +53,7 @@ static bool file_end_with_rt(char *filename)
 	return (true);
 }
 
-void copy_line(t_trim *t)
+void copy_line(t_ptrim *t)
 {
 	if (ft_isspace(t->old_line[t->i]))
 	{
@@ -76,7 +76,7 @@ void copy_line(t_trim *t)
 
 char *trim_line(char *old_line)
 {
-	t_trim	t;
+	t_ptrim	t;
 	char	*line;
 
 	if (!old_line)
@@ -102,7 +102,7 @@ char *trim_line(char *old_line)
 	return (line);
 }
 
-void parsing(t_world *world, int ac, char *filename)
+void parsing(t_pworld *pworld, int ac, char const *filename)
 {
 	char *old_line;
 	char *line;
@@ -120,7 +120,7 @@ void parsing(t_world *world, int ac, char *filename)
 		if (old_line == NULL)
 			break;
 		line = trim_line(old_line);
-		parse_line(world, line);
+		parse_line(pworld, line);
 		free(line);
 	}
 	close (fd);

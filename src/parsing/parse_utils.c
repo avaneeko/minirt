@@ -1,18 +1,26 @@
 #include "minirt.h"
-void world_init(t_world *world)
+
+void	*ft_bzero(void *s, size_t n)
 {
-	world->A.is_set = false;
-	world->C.is_set = false;
-	world->L.is_set = false;
-	world->objs.sp = NULL;
-	world->objs.sphere_len = 0;
-	world->objs.sphere_cap = 0;
-	world->objs.pl = NULL;
-	world->objs.pl_len = 0;
-	world->objs.pl_cap = 0;
-	world->objs.cy = NULL;
-	world->objs.cy_len = 0;
-	world->objs.cy_cap = 0;
+	size_t			i;
+	unsigned char	*str;
+
+	str = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
+	return (s);
+}
+
+void pworld_init(t_pworld *pworld)
+{
+	ft_bzero(pworld, sizeof(*pworld));
+	pworld->A.is_set = false;
+	pworld->C.is_set = false;
+	pworld->L.is_set = false;
 }
 void free_split(char **arr)
 {
@@ -31,16 +39,16 @@ void free_split(char **arr)
 	arr = NULL;
 }
 
-void check_unit_vector(t_vec3 v, char *err_msg)
+void check_unit_vector(t_pvec3 v, char *err_msg)
 {
 	if (v.x < -1.0 || v.x > 1.0 || v.y < -1.0 || v.y > 1.0 || v.z < -1.0 || v.z > 1.0)
 		parse_error(EXIT_FAILURE, err_msg);
 	if (v.x == 0.0 && v.y == 0.0 && v.z == 0.0)
 		parse_error(EXIT_FAILURE, err_msg);
 }
-t_vec3 parse_vec3(char *tok)
+t_pvec3 parse_vec3(char *tok)
 {
-	t_vec3 vec;
+	t_pvec3 vec;
 	int tok_count;
 	char **vec_arr;
 
@@ -58,10 +66,10 @@ t_vec3 parse_vec3(char *tok)
 	free_split(vec_arr);
 	return (vec);
 }
-t_color parse_color(char *tok)
+t_pcolor parse_color(char *tok)
 {
 	int tok_count;
-	t_color color;
+	t_pcolor color;
 	char **color_arr;
 
 	color_arr = ft_split(tok, ','); //MALLOC

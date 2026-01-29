@@ -1,11 +1,11 @@
 #include "minirt.h"
-//You now create a local object, then APPEND it into world->objs (the array)
-void parse_cylinder(t_world *world, char *line)
+//create a local object, then APPEND it into world->objs (the array)
+void parse_cylinder(char *line)
 {
 	int tok_count;
 	char **toks;
-	t_cylinder cy;
-	(void)world;
+	t_pcylinder cy;
+
 	toks = NULL;
 	tok_count = 0;
 	toks = ft_split(line, ' '); //MALLOC
@@ -31,12 +31,12 @@ void parse_cylinder(t_world *world, char *line)
 	free_split(toks);
 }
 
-void parse_plane(t_world *world, char *line)
+void parse_plane(char *line)
 {
 	int tok_count;
 	char **toks;
-	t_plane pl;
-	(void)world;
+	t_pplane pl;
+
 	toks = NULL;
 	tok_count = 0;
 	toks = ft_split(line, ' '); //MALLOC
@@ -56,12 +56,12 @@ void parse_plane(t_world *world, char *line)
 	free_split(toks);
 }
 
-void parse_sphere(t_world *world, char *line)
+void parse_sphere(char *line)
 {
 	int tok_count;
 	char **toks;
-	t_sphere sp;
-	(void)world;
+	t_psphere sp;
+
 	toks = NULL;
 	tok_count = 0;
 	toks = ft_split(line, ' '); //MALLOC
