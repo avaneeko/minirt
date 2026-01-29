@@ -21,6 +21,17 @@ void pworld_init(t_pworld *pworld)
 	pworld->A.is_set = false;
 	pworld->C.is_set = false;
 	pworld->L.is_set = false;
+	pworld->objs.sp = NULL;
+	pworld->objs.sphere_len = 0;
+	pworld->objs.sphere_cap = 0;
+
+	pworld->objs.pl = NULL;
+	pworld->objs.pl_len = 0;
+	pworld->objs.pl_cap = 0;
+
+	pworld->objs.cy = NULL;
+	pworld->objs.cy_len = 0;
+	pworld->objs.cy_cap = 0;
 }
 void free_split(char **arr)
 {

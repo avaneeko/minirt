@@ -9,6 +9,7 @@
 # include "minitypes.h"
 # include "cam_def.h"
 # include "amb.h"
+# include "light.h"
 
 /* fw */
 struct s_sphere;
@@ -39,7 +40,7 @@ struct s_world
 	t_objs	objs;
 	t_cam	cam;
 	t_amb   amb;
-	//t_light light;
+	t_light light;
 	t_u32	bg_col;	/* xrgb */
 };
 typedef struct s_world t_world;

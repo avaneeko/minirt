@@ -1,5 +1,5 @@
 #include "minirt.h"
-#include "parsing.h"
+# include "parsing.h"
 #include "world_def.h"
 #include "sphere_def.h"
 
@@ -188,10 +188,6 @@ t_ray ray_from_pixel(t_cam const *cam, int x, int y)
 
 #pragma endregion
 /* end of test */
-void adapt_pworld_to_world(t_pword, &pworld, t_world, &world)
-{
-	//ambient
-}
 
 int	main(int argc, char const **argv)
 {

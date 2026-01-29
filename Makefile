@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/29 15:20:14 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/01/29 19:03:28 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC := src/main.c \
 		src/utils/number_utils.c \
 		get_next_line/src/get_next_line.c \
 		get_next_line/src/get_next_line_utils.c \
+		src/adapter.c \
 		src/app_destroy.c \
 		src/app_hook_add.c \
 		src/app_init.c \

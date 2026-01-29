@@ -2,11 +2,12 @@
 # define AMB_H
 
 # include "v3.h"
+# include "color_def.h"
 
 struct s_amb
 {
 	float ratio;
-	t_v3 color;
+	t_color color;
 };
 typedef struct s_amb t_amb;
 

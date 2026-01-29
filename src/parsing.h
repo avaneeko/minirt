@@ -111,6 +111,9 @@ void parse_sphere(char *line);
 void parse_plane(char *line);
 void parse_cylinder(char *line);
 
+//parsing/adapter.c
+
+void adapt_pworld_to_world(t_pworld *pworld, t_world *world);
 //utils/parse_error.c
 void parse_error(int code, char *s);
 
