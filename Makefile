@@ -34,7 +34,7 @@ OBJ := $(SRC:src/%.c=obj/%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx -MMD -MP $(CF)
+CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx-linux -MMD -MP $(CF)
 LDFLAGS := -L. -lm -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)
@@ -42,18 +42,21 @@ all: $(NAME)
 $(NAME): $(OBJ) libmlx.a
 	$(CC) $(CFLAGS) $^ $(LDFLAGS) -o $@
 
-libmlx.a:
-	+$(MAKE) -C ./minilibx
-	mv minilibx/libmlx.a ./libmlx.a
+minilibx-linux:
+	git clone --recursive https://github.com/42paris/minilibx-linux
+
+libmlx.a: minilibx-linux
+	+$(MAKE) -C ./minilibx-linux
+	mv minilibx-linux/libmlx.a ./libmlx.a
 
 obj:
 	mkdir -p obj
 
-obj/%.o: src/%.c | obj
+obj/%.o: src/%.c minilibx-linux | obj
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	$(MAKE) -C ./minilibx clean
+	$(MAKE) -C ./minilibx-linux clean
 	$(RM) libmlx.a
 	rm -rf obj
 
