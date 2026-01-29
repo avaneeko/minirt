@@ -5,7 +5,9 @@
  * Sphere intersection functions.
  */
 
-int
-intersect_spheres();
+# include "sphere_intersection_desc.h"
+
+void
+intersect_spheres(t_sphere_intersection_desc const *desc);
 
 #endif
