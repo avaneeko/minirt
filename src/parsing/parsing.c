@@ -74,6 +74,7 @@ void copy_line(t_trim *t)
 	}
 }
 
+
 char *trim_line(char *old_line)
 {
 	t_trim	t;
