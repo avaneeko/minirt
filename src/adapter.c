@@ -1,7 +1,4 @@
-#include "minirt.h"
-# include "parsing.h"
-#include "world_def.h"
-#include "sphere_def.h"
+#include "adapter.h"
 
 static t_v3 pvec3_to_v3(t_pvec3 v)
 {
@@ -16,7 +13,7 @@ static void adapt_light(t_pworld *pworld, t_world *world)
 {
 	if (!pworld->L.is_set)
 		return ;
-	world->light.point = pvec3_to_v3(pworld->L);
+	world->light.point = pvec3_to_v3(pworld->L.lpoint);
 	world->light.color.r = pworld->L.lcolor.r / 255.0f;
 	world->light.color.g = pworld->L.lcolor.g / 255.0f;
 	world->light.color.b = pworld->L.lcolor.b / 255.0f;
@@ -47,4 +44,7 @@ void adapt_pworld_to_world(t_pworld *pworld, t_world *world)
 	adapt_ambient(pworld, world);
 	adapt_camera(pworld, world);
 	adapt_light(pworld, world);
+	//adapt_sphere()
+	//adapt_planes()
+	//adapt_cylinder()
 }

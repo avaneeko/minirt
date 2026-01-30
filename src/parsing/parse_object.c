@@ -56,7 +56,22 @@ void parse_plane(char *line)
 	free_split(toks);
 }
 
-void parse_sphere(char *line)
+void push_to_world_sphere(t_world *pworld)
+{
+	t_u32 new_cap;
+	char *new_arr;
+
+	if (world->objs.sphere_len == world->objs.sphere_cap)
+	{
+		if(world->objs.sphere_cap != 0)
+			new_cap = world->objs.sphere_cap *= 2;
+		else
+			new_cap = 4;
+		new_arr = malloc(new_cap * size_of(t_psphere))
+	}
+
+}
+void parse_sphere(char const*line, t_world *world)
 {
 	int tok_count;
 	char **toks;
@@ -80,5 +95,6 @@ void parse_sphere(char *line)
 	//parse sphere color
 	sp.sp_color = parse_color(toks[3]);
 	//add the sp to vector here
+	push_to_world_sphere(world);
 	free_split(toks);
 }

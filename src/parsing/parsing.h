@@ -2,6 +2,7 @@
 # define PARSING_H
 
 #include <stdbool.h>
+#include <stddef.h>
 
 typedef struct s_ptrim
 {
@@ -75,14 +76,14 @@ typedef struct s_pcylinder
 typedef struct  s_pobjs
 {
 	t_psphere *sp;
-	float		sphere_len;
-	float		sphere_cap;
+	uint32_t		sphere_len;
+	uint32_t		sphere_cap;
 	t_pplane  *pl;
-	float		pl_len;
-	float		pl_cap;
+	uint32_t		pl_len;
+	uint32_t		pl_cap;
 	t_pcylinder *cy;
-	float		cy_len;
-	float		cy_cap;
+	uint32_t		cy_len;
+	uint32_t		cy_cap;
 }	t_pobjs;
 
 typedef struct s_pworld
@@ -111,9 +112,6 @@ void parse_sphere(char *line);
 void parse_plane(char *line);
 void parse_cylinder(char *line);
 
-//parsing/adapter.c
-
-void adapt_pworld_to_world(t_pworld *pworld, t_world *world);
 //utils/parse_error.c
 void parse_error(int code, char *s);
 
