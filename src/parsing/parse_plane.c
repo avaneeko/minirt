@@ -47,7 +47,7 @@ void parse_plane(t_world *world, char const *line)
 	pl.pos = parse_vec3(toks[1]);
 	//parse plane normalized axis
 	pl.ang = parse_vec3(toks[2]);
-	check_unit_vector(pl.ang, "Plane normalized vector invalid");
+	check_unit_vector(pl.ang);
 	pl.col = parse_color(toks[3]);
 	//add pl to the vector
 	push_to_world_plane(world, pl);

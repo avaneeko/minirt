@@ -1,6 +1,6 @@
 #include "minirt.h"
 # include "v3.h"
-
+# include "math.h"
 void	*ft_bzero(void *s, size_t n)
 {
 	size_t			i;
@@ -51,14 +51,21 @@ void free_split(char **arr)
 	arr = NULL;
 }
 
-void check_unit_vector(t_v3 v, char *err_msg)
+void check_unit_vector(t_v3 v)
 {
+	double mag;
+	//check if it is valid direction
 	if (v.x < -1.0 || v.x > 1.0 || v.y < -1.0 || v.y > 1.0 || v.z < -1.0 || v.z > 1.0)
-		parse_error(EXIT_FAILURE, err_msg);
+		parse_error(EXIT_FAILURE, "Not valid vector direction");
+	//vector cannot be 0
 	if (v.x == 0.0 && v.y == 0.0 && v.z == 0.0)
-		parse_error(EXIT_FAILURE, err_msg);
+		parse_error(EXIT_FAILURE, "Vector cannot be 0");
 	//need to also check the formula thing is here
+	mag = sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+	if (mag <= 0.999 || mag >= 1.001)
+		parse_error(EXIT_FAILURE, "Not unit vector");
 }
+
 t_v3 parse_vec3(char *tok)
 {
 	t_v3 vec;
@@ -97,10 +104,10 @@ t_v3 parse_color(char *tok)
 	}
 	if (tok_count != 3)
 		parse_error(EXIT_FAILURE, "Color format 255,255,255");
-	color.x = parse_number(color_arr[0]);
-	color.y = parse_number(color_arr[1]);
-	color.z = parse_number(color_arr[2]);
-	if (color.x > 255.0 || color.x < 0.0 || color.y > 255.0 || color.y < 0.0 || color.z > 255.0 || color.z < 0.0)
+	color.x = parse_number(color_arr[0]) / 255.0;
+	color.y = parse_number(color_arr[1]) / 255.0;
+	color.z = parse_number(color_arr[2]) / 255.0;
+	if (color.x > 1.0 || color.x < 0.0 || color.y > 1.0 || color.y < 0.0 || color.z > 1.0 || color.z < 0.0)
 		parse_error(EXIT_FAILURE, "Color range 0 - 255");
 	free_split(color_arr);
 	return(color);

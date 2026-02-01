@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 # include "world_def.h"
-//# include "v3.h"
+
 typedef struct s_ptrim
 {
 	int   i;
@@ -42,7 +42,7 @@ double	parse_number(char const*str);
 
 //parsing/parse_utils.c
 void world_init(t_world *world);
-void check_unit_vector(t_v3 v, char *err_msg);
+void check_unit_vector(t_v3 v);
 t_v3 parse_color(char *tok);
 t_v3 parse_vec3(char *tok);
 void	free_split(char **arr);

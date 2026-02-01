@@ -47,7 +47,7 @@ void parse_cylinder(t_world *world, char const*line)
 	cy.pos = parse_vec3(toks[1]);
 	//parse cy normalized axis
 	cy.ang = parse_vec3(toks[2]);
-	check_unit_vector(cy.ang, "Cylinder normalized axis invalid");
+	check_unit_vector(cy.ang);
 	//parse cy diameter snf height
 	cy.r = parse_number(toks[3]);
 	cy.h = parse_number(toks[4]);
