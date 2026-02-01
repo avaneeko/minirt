@@ -20,7 +20,6 @@
 // }
 void parse_line(t_world *world, char *line)
 {
-
 	if (!line) //skip extra spaces and empty lines or \n
 		return ; //FIX ME
 	if (line[0] == 'A')
@@ -32,14 +31,14 @@ void parse_line(t_world *world, char *line)
 	else if (line[0] == 's' && line[1] == 'p')
 	 	parse_sphere(world, line);
 	else if (line[0] == 'p' && line[1] == 'l')
-	 	parse_plane(world,line);
+	 	parse_plane(world, line);
 	else if (line[0] =='c' && line[1] == 'y')
 	 	parse_cylinder(world, line);
 	else
 		parse_error(EXIT_FAILURE, "Map error, cannot parse content");
 }
 
-static bool file_end_with_rt(char *filename)
+static bool file_end_with_rt(char const*filename)
 {
 	int	len;
 
@@ -53,7 +52,7 @@ static bool file_end_with_rt(char *filename)
 	return (true);
 }
 
-void copy_line(t_trim *t)
+void copy_line(t_ptrim *t)
 {
 	if (ft_isspace(t->old_line[t->i]))
 	{
@@ -76,7 +75,7 @@ void copy_line(t_trim *t)
 
 char *trim_line(char *old_line)
 {
-	t_trim	t;
+	t_ptrim	t;
 	char	*line;
 
 	if (!old_line)
@@ -102,7 +101,7 @@ char *trim_line(char *old_line)
 	return (line);
 }
 
-void parsing(t_world *world, int ac, char *filename)
+void parsing(t_world *world, int ac, char const *filename)
 {
 	char *old_line;
 	char *line;

@@ -1,8 +1,4 @@
 
-Semantic vector validation (THIS IS BIG)
-Camera orientation / plane normal / cylinder axis
-Each component in range [-1, 1]
-Vector must NOT be (0,0,0)
-Vector must be normalized (length ≈ 1)
-sqrt(x*x + y*y + z*z) ≈ 1
+Calculates the magnitude (length) of the vector and returns the result as a float (this is simply the equation sqrt(x*x + y*y + z*z).)
 
+vector（向量）不是“一个点”， 它是 “一个方向 + 一个长度” (1, 2, 3)意思是：“朝某个方向走这么多”
