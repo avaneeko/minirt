@@ -11,6 +11,7 @@ struct s_cylinder
 {
 	t_v3	pos;	/* Position.	*/
 	t_v3	ang;	/* Angles.		*/
+	t_v3	col;
 	t_f32	r;		/* Radius.		*/
 	t_f32	h;		/* Height.		*/
 };

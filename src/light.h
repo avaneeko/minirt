@@ -2,12 +2,12 @@
 # define LIGHT_H
 
 # include "v3.h"
-# include "color_def.h"
 
 struct s_light
 {
+	bool is_set;
 	t_v3 point;
-	t_color color;
+	t_v3 color;
 	float  brightness;
 };
 typedef struct s_light t_light;

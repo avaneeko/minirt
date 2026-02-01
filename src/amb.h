@@ -1,13 +1,14 @@
 #ifndef AMB_H
 # define AMB_H
 
+# include <stdbool.h>
 # include "v3.h"
-# include "color_def.h"
 
 struct s_amb
 {
+	bool  is_set;
 	float ratio;
-	t_color color;
+	t_v3 color;
 };
 typedef struct s_amb t_amb;
 

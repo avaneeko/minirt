@@ -2,9 +2,11 @@
 # define CAM_DEF_H
 
 # include "v3.h"
+# include <stdbool.h>
 
 struct s_cam
 {
+	bool	is_set;
 	t_v3	pos;	/* Position in world space. */
 	t_v3	dir;	/* View angles (normalized). */
 	t_v3	fwd;	/* Forward vector. */

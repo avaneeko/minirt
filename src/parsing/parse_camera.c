@@ -29,12 +29,12 @@ C	              camera identifier	            	must be unique (only one camera a
 */
 
 
-void parse_camera(t_pworld *pworld, char *line)
+void parse_camera(t_world *world, char const*line)
 {
 	int tok_count;
 	char **toks;
 
-	if (pworld->C.is_set == true)
+	if (world->cam.is_set == true)
 		parse_error(EXIT_FAILURE, "Only one camera set allowed");
 	tok_count = 0;
 	toks = NULL;
@@ -46,14 +46,14 @@ void parse_camera(t_pworld *pworld, char *line)
 	if (tok_count != 4)
 		parse_error(EXIT_FAILURE, "Camera position needs 4 tokens");
 	// parse view point
-	pworld->C.vpoint = parse_vec3(toks[1]);
+	world->cam.pos = parse_vec3(toks[1]);
 	//parse orientation vector, can it be all 0?
-	pworld->C.orien = parse_vec3(toks[2]);
-	check_unit_vector(pworld->C.orien, "Camera orientation vector invalid");
+	world->cam.dir = parse_vec3(toks[2]);
+	check_unit_vector(world->cam.dir, "Camera orientation vector invalid");
 	//parse fov
-	pworld->C.fov = parse_number(toks[3]);
-	if (pworld->C.fov < 0 || pworld->C.fov > 180)
+	world->cam.fov = parse_number(toks[3]);
+	if (world->cam.fov < 0 || world->cam.fov > 180)
 		parse_error(EXIT_FAILURE, "Field of view range 0 - 180");
-	pworld->C.is_set = true;
+	world->cam.is_set = true;
 	free_split(toks);
 }

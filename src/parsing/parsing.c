@@ -18,23 +18,22 @@
 
 // 	}
 // }
-void parse_line(t_pworld *pworld, char *line)
+void parse_line(t_world *world, char *line)
 {
-
 	if (!line) //skip extra spaces and empty lines or \n
 		return ; //FIX ME
 	if (line[0] == 'A')
-		parse_ambient(pworld, line);
+		parse_ambient(world, line);
 	else if (line[0] == 'C')
-	 	parse_camera(pworld, line);
+	 	parse_camera(world, line);
 	else if (line[0] == 'L')
-	 	parse_light(pworld, line);
+	 	parse_light(world, line);
 	else if (line[0] == 's' && line[1] == 'p')
-	 	parse_sphere(line);
+	 	parse_sphere(world, line);
 	else if (line[0] == 'p' && line[1] == 'l')
-	 	parse_plane(line);
+	 	parse_plane(world, line);
 	else if (line[0] =='c' && line[1] == 'y')
-	 	parse_cylinder(line);
+	 	parse_cylinder(world, line);
 	else
 		parse_error(EXIT_FAILURE, "Map error, cannot parse content");
 }
@@ -102,7 +101,7 @@ char *trim_line(char *old_line)
 	return (line);
 }
 
-void parsing(t_pworld *pworld, int ac, char const *filename)
+void parsing(t_world *world, int ac, char const *filename)
 {
 	char *old_line;
 	char *line;
@@ -120,7 +119,7 @@ void parsing(t_pworld *pworld, int ac, char const *filename)
 		if (old_line == NULL)
 			break;
 		line = trim_line(old_line);
-		parse_line(pworld, line);
+		parse_line(world, line);
 		free(line);
 	}
 	close (fd);

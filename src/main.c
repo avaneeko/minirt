@@ -1,5 +1,4 @@
 #include "minirt.h"
-#include "adapter.h"
 #include "world_def.h"
 #include "sphere_def.h"
 
@@ -193,13 +192,10 @@ int	main(int argc, char const **argv)
 {
 	t_app	app;
 	t_world world;
-	t_pworld pworld;
 	data d = (data){&app, &world};
 	InitDebugWorld(&world);
-	pworld_init(&pworld);
-	parsing(&pworld, argc, argv[1]);
-	adapt_pworld_to_world(&pworld, &world);
-	//pworld_destroy()
+	world_init(&world);
+	parsing(&world, argc, argv[1]);
 	app_init(&app, argc, argv);
 	app_hook_add(&app, (t_hook const[]){
 		{APP_HOOK_THINK, &think, &d},

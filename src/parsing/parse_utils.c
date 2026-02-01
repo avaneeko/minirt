@@ -1,4 +1,5 @@
 #include "minirt.h"
+# include "v3.h"
 
 void	*ft_bzero(void *s, size_t n)
 {
@@ -15,23 +16,23 @@ void	*ft_bzero(void *s, size_t n)
 	return (s);
 }
 
-void pworld_init(t_pworld *pworld)
+void world_init(t_world *world)
 {
-	ft_bzero(pworld, sizeof(*pworld));
-	pworld->A.is_set = false;
-	pworld->C.is_set = false;
-	pworld->L.is_set = false;
-	pworld->objs.sp = NULL;
-	pworld->objs.sphere_len = 0;
-	pworld->objs.sphere_cap = 0;
+	ft_bzero(world, sizeof(*world));
+	world->amb.is_set = false;
+	world->cam.is_set = false;
+	world->light.is_set = false;
+	world->objs.spheres = NULL;
+	world->objs.sphere_len = 0;
+	world->objs.sphere_cap = 0;
 
-	pworld->objs.pl = NULL;
-	pworld->objs.pl_len = 0;
-	pworld->objs.pl_cap = 0;
+	world->objs.planes = NULL;
+	world->objs.plane_len = 0;
+	world->objs.plane_cap = 0;
 
-	pworld->objs.cy = NULL;
-	pworld->objs.cy_len = 0;
-	pworld->objs.cy_cap = 0;
+	world->objs.cylinders = NULL;
+	world->objs.cylinder_len = 0;
+	world->objs.cylinder_cap = 0;
 }
 void free_split(char **arr)
 {
@@ -50,16 +51,17 @@ void free_split(char **arr)
 	arr = NULL;
 }
 
-void check_unit_vector(t_pvec3 v, char *err_msg)
+void check_unit_vector(t_v3 v, char *err_msg)
 {
 	if (v.x < -1.0 || v.x > 1.0 || v.y < -1.0 || v.y > 1.0 || v.z < -1.0 || v.z > 1.0)
 		parse_error(EXIT_FAILURE, err_msg);
 	if (v.x == 0.0 && v.y == 0.0 && v.z == 0.0)
 		parse_error(EXIT_FAILURE, err_msg);
+	//need to also check the formula thing is here
 }
-t_pvec3 parse_vec3(char *tok)
+t_v3 parse_vec3(char *tok)
 {
-	t_pvec3 vec;
+	t_v3 vec;
 	int tok_count;
 	char **vec_arr;
 
@@ -77,10 +79,10 @@ t_pvec3 parse_vec3(char *tok)
 	free_split(vec_arr);
 	return (vec);
 }
-t_pcolor parse_color(char *tok)
+t_v3 parse_color(char *tok)
 {
 	int tok_count;
-	t_pcolor color;
+	t_v3 color;
 	char **color_arr;
 
 	color_arr = ft_split(tok, ','); //MALLOC
@@ -95,10 +97,10 @@ t_pcolor parse_color(char *tok)
 	}
 	if (tok_count != 3)
 		parse_error(EXIT_FAILURE, "Color format 255,255,255");
-	color.r = parse_number(color_arr[0]);
-	color.g = parse_number(color_arr[1]);
-	color.b = parse_number(color_arr[2]);
-	if (color.r > 255.0 || color.r < 0.0 || color.g > 255.0 || color.g < 0.0 || color.b > 255.0 || color.b < 0.0)
+	color.x = parse_number(color_arr[0]);
+	color.y = parse_number(color_arr[1]);
+	color.z = parse_number(color_arr[2]);
+	if (color.x > 255.0 || color.x < 0.0 || color.y > 255.0 || color.y < 0.0 || color.z > 255.0 || color.z < 0.0)
 		parse_error(EXIT_FAILURE, "Color range 0 - 255");
 	free_split(color_arr);
 	return(color);

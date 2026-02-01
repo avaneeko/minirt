@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/29 19:03:28 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/02/01 16:40:43 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRC := src/main.c \
 		src/parsing/parse_ambient.c \
 		src/parsing/parse_camera.c \
 		src/parsing/parse_light.c \
-		src/parsing/parse_object.c \
+		src/parsing/parse_sphere.c \
+		src/parsing/parse_plane.c \
+		src/parsing/parse_cylinder.c \
 		src/parsing/parse_error.c \
 		src/parsing/parse_utils.c \
 		src/utils/string_utils.c \
@@ -25,7 +27,6 @@ SRC := src/main.c \
 		src/utils/number_utils.c \
 		get_next_line/src/get_next_line.c \
 		get_next_line/src/get_next_line_utils.c \
-		src/adapter.c \
 		src/app_destroy.c \
 		src/app_hook_add.c \
 		src/app_init.c \
