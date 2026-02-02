@@ -10,6 +10,7 @@
 #include "config.h"
 #include "hit_def.h"
 #include "sphere_intersection.h"
+#include "plane_intersection.h"
 
 typedef struct{t_app *a; t_world *w;} data;
 
@@ -47,24 +48,24 @@ t_ray ray_from_pixel(t_cam const *cam, int x, int y);
 
 static t_f32 clamp01(t_f32 x)
 {
-    if (x < 0.0f) return 0.0f;
-    if (x > 1.0f) return 1.0f;
-    return x;
+	if (x < 0.0f) return 0.0f;
+	if (x > 1.0f) return 1.0f;
+	return x;
 }
 
 static t_v3 normal_to_rgb(t_v3 n)
 {
-    t_v3 c;
+	t_v3 c;
 
-    c.x = (n.x + 1.0f) * 0.5f;
-    c.y = (n.y + 1.0f) * 0.5f;
-    c.z = (n.z + 1.0f) * 0.5f;
+	c.x = (n.x + 1.0f) * 0.5f;
+	c.y = (n.y + 1.0f) * 0.5f;
+	c.z = (n.z + 1.0f) * 0.5f;
 
-    c.x = clamp01(c.x);
-    c.y = clamp01(c.y);
-    c.z = clamp01(c.z);
+	c.x = clamp01(c.x);
+	c.y = clamp01(c.y);
+	c.z = clamp01(c.z);
 
-    return c;
+	return c;
 }
 
 t_hit
@@ -77,6 +78,16 @@ intersect(t_world const *world, t_ray const *ray)
 		&(t_sphere_intersection_desc const){
 		.spheres = world->objs.spheres,
 		.sphere_len = world->objs.sphere_len,
+		.ray = *ray,
+		.dist_min = 0.f,
+		.dist_max = hit.dist,
+		.hit = &hit,
+	});
+
+	intersect_planes(
+		&(t_plane_intersection_desc const){
+		.planes = world->objs.planes,
+		.plane_len = world->objs.plane_len,
 		.ray = *ray,
 		.dist_min = 0.f,
 		.dist_max = hit.dist,
@@ -140,7 +151,6 @@ static int last_x = -1;
 static int last_y = -1;
 int on_mouse_move(int x, int y, void *param)
 {
-	printf("%i %i\r\n", x, y);
     (void)param;
 
     if (last_x >= 0 and not (move.e == move.q and move.q != 0))
