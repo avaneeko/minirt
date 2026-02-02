@@ -47,7 +47,7 @@ OBJ := $(SRC:%.c=obj/%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -Isrc -Iget_next_line/include -Iminilibx-linux -MMD -MP $(CF)
+CFLAGS := -glldb -Wall -Wextra -Werror -Isrc -Iget_next_line/include -Iminilibx-linux -MMD -MP $(CF)
 LDFLAGS := -L. -lm -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)

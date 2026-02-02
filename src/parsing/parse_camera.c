@@ -48,8 +48,8 @@ void parse_camera(t_world *world, char const*line)
 	// parse view point
 	world->cam.pos = parse_vec3(toks[1]);
 	//parse orientation vector, can it be all 0?
-	world->cam.dir = parse_vec3(toks[2]);
-	check_unit_vector(world->cam.dir);
+	world->cam.fwd = parse_vec3(toks[2]);
+	check_unit_vector(world->cam.fwd);
 	//parse fov
 	world->cam.fov = parse_number(toks[3]);
 	if (world->cam.fov < 0 || world->cam.fov > 180)

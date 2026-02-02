@@ -100,7 +100,8 @@ static t_u32 rgb_to_u32(t_v3 c)
 
 void think(void *param)
 {
-	draw(((data*)param)->a, ((data*)param)->w);
+	t_world *w = ((data*)param)->w;
+	draw(((data*)param)->a, w);
 	try_present(((data*)param)->a);
 	return;
 }
@@ -196,6 +197,10 @@ int	main(int argc, char const **argv)
 	InitDebugWorld(&world);
 	world_init(&world);
 	parsing(&world, argc, argv[1]);
+	// world.cam.pos = (t_v3){0.f, 0.f, 0.f};
+	// world.cam.dir = (t_v3){0.f, 0.f, 1.f};
+	// world.cam.fov = 70.f;
+	cam_init(&world.cam);
 	app_init(&app, argc, argv);
 	app_hook_add(&app, (t_hook const[]){
 		{APP_HOOK_THINK, &think, &d},
