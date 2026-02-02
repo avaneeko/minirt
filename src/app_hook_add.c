@@ -14,8 +14,14 @@ void	register_hook(t_app const *app, t_s8 hook_id, void *fnptr, void *param)
 		mlx_loop_hook(app->mlx, fnptr, param);
 	else if (hook_id == APP_HOOK_KEY_UP)
 		mlx_key_hook(app->wnd, fnptr, param);
-	else if (hook_id == APP_HOOK_MOUSE)
+	else if (hook_id == APP_HOOK_KEY_DOWN)
+		mlx_hook(app->wnd, 2, 1, fnptr, param);
+	else if (hook_id == APP_HOOK_MOUSE_BUTTON_DOWN)
 		mlx_mouse_hook(app->wnd, fnptr, param);
+	else if (hook_id == APP_HOOK_MOUSE_BUTTON_UP)
+		mlx_hook(app->wnd, 5, 1<<3, fnptr, param);
+	else if (hook_id == APP_HOOK_MOUSE_MOVE)
+		mlx_hook(app->wnd, 6, 1<<6, fnptr, param);
 	else
 	{
 		write(2, ERR_FATAL_APP_HOOK_INVALID, sizeof(ERR_FATAL_APP_HOOK_INVALID)
