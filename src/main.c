@@ -354,7 +354,6 @@ int	main(int argc, char const **argv)
 	InitDebugWorld(&world);
 
 	app_init(&app, argc, argv);
-	/* test: */ mlx_do_key_autorepeatoff(app.mlx); /* end of test */
 	app_hook_add(&app, (t_hook const[]){
 		{APP_HOOK_THINK, &think, &d},
 		{APP_HOOK_KEY_DOWN, &key_down, &d},
