@@ -1,5 +1,6 @@
 #include "world_def.h"
 #include "sphere_def.h"
+#include "plane_def.h"
 #include "cam.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -52,6 +53,32 @@ InitSpheres(t_sphere **spheres, t_u32 *len, t_u32 *cap)
 }
 
 /**
+ * Plane:
+ * pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
+ ∗ identifier: pl
+ ∗ x, y, z coordinates of a point in the plane: 0.0,0.0,-10.0
+ ∗ 3D normalized normal vector, in the range [-1,1] for each x, y, z axis:
+ * 0.0,1.0,0.0
+ ∗ R,G,B colors in the range [0-255]: 0,0,225
+ */
+static void
+InitPlanes(t_plane **planes, t_u32 *len, t_u32 *cap)
+{
+	if ((*planes = malloc(16 * sizeof(t_plane))) == NULL)
+	{
+		write(2, "Out of memory\r\n", 15);
+		_Exit(-1);
+	}
+
+	(*planes)[0].pos = (t_v3){0.0f, 0.0f, -10.0f};
+	(*planes)[0].ang = (t_v3){0.0f, 1.0f, 0.0f};
+	(*planes)[0].col = (t_v3){0.f, 0.f, 1.f};
+
+	*len = 1;
+	*cap = 16;
+}
+
+/**
  * Initialize a debug world.
  *
  * Test scene for debugging.
@@ -62,9 +89,9 @@ InitDebugWorld(t_world *world)
 {
 	InitCamera(&world->cam);
 	InitSpheres(&world->objs.spheres, &world->objs.sphere_len, &world->objs.sphere_cap);
+	InitPlanes(&world->objs.planes, &world->objs.plane_len, &world->objs.plane_cap);
 	world->cam.fwd = (t_v3){0.f, 1.f, 0.f};
 	world->cam.fov = 1.22173048f;
-	printf("%i\r\n", cam_init(&world->cam));
 
 	world->bg_col = 0x00112233; /* or 0x0011223344 */
 
