@@ -95,7 +95,6 @@ intersect(t_world const *world, t_ray const *ray)
 	});
 
 	/* UNDONE: */
-	/* Intersect planes. */
 	/* Intersect cylinder. */
 
 	return hit;
