@@ -5,6 +5,7 @@
 /* test */
 #pragma region test
 #include <stdio.h>
+#include <time.h>
 #include "mlx.h"
 #include "config.h"
 #include "hit_def.h"
@@ -98,17 +99,165 @@ static t_u32 rgb_to_u32(t_v3 c)
     return (r << 16) | (g << 8) | b;
 }
 
+struct s_move_input
+{
+	/* Keys. */
+	int	w : 1;
+	int a : 1;
+	int s : 1;
+	int d : 1;
+	int q : 1;
+	int e : 1;
+	/* Mouse delta. */
+	int	mx : 12;
+	int	my : 12;
+};
+typedef struct s_move_input move_input;
+static move_input move;
+
+static
+void cam_move(t_cam *cam, t_f32 step)
+{
+    t_v3 delta;
+
+    delta = (t_v3){0,0,0};
+
+    if (move.w) v3_muladds(&delta, &cam->fwd,  step, &delta);
+    if (move.s) v3_muladds(&delta, &cam->fwd, -step, &delta);
+    if (move.d) v3_muladds(&delta, &cam->right,  step, &delta);
+    if (move.a) v3_muladds(&delta, &cam->right, -step, &delta);
+
+    /* world up for Z-up */
+    if (move.e) delta.z += step;
+    if (move.q) delta.z -= step;
+
+    cam->pos.x += delta.x;
+    cam->pos.y += delta.y;
+    cam->pos.z += delta.z;
+}
+
+static int last_x = -1;
+static int last_y = -1;
+int on_mouse_move(int x, int y, void *param)
+{
+	printf("%i %i\r\n", x, y);
+    (void)param;
+
+    if (last_x >= 0 and not (move.e == move.q and move.q != 0))
+    {
+        move.mx += (x - last_x);
+        move.my += (y - last_y);
+    }
+    last_x = x;
+    last_y = y;
+    return 0;
+}
+
+static t_v3 v3_rot_axis(t_v3 v, t_v3 axis, t_f32 ang)
+{
+    t_f32 c = cosf(ang);
+    t_f32 s = sinf(ang);
+
+    /* axis must be normalized */
+    t_v3 axv;
+    t_v3 a_cross_v;
+
+    axv.x = axis.x * v3_dot(&axis, &v);
+    axv.y = axis.y * v3_dot(&axis, &v);
+    axv.z = axis.z * v3_dot(&axis, &v);
+
+    v3_cross(&axis, &v, &a_cross_v);
+
+    /* v*c + (axis×v)*s + axis*(axis·v)*(1-c) */
+    v.x = v.x * c + a_cross_v.x * s + axv.x * (1.0f - c);
+    v.y = v.y * c + a_cross_v.y * s + axv.y * (1.0f - c);
+    v.z = v.z * c + a_cross_v.z * s + axv.z * (1.0f - c);
+    return v;
+}
+
+static void cam_rotate_mouse(t_cam *cam, t_f32 sens)
+{
+    t_f32 yaw = (t_f32)move.mx * sens;
+    t_f32 pitch = (t_f32)move.my * sens;
+
+    t_v3 world_up = (t_v3){0, 0, 1};
+
+    /* yaw around world up */
+    cam->fwd = v3_rot_axis(cam->fwd, world_up, -yaw);
+
+    /* rebuild right/up from new forward (your existing cam_init logic), OR: */
+    /* pitch around camera right (after yaw) */
+    v3_normalize_safe(&cam->fwd);
+    cam_init(cam); /* rebuild basis first so cam->right is correct */
+    cam->fwd = v3_rot_axis(cam->fwd, cam->right, -pitch);
+
+    v3_normalize_safe(&cam->fwd);
+    cam_init(cam);
+
+    move.mx = move.my = 0;
+}
+
+// 119 W
+// 97 A
+// 115 S
+// 100 D
+// 113 Q
+// 101 E
+static void
+set_move_input(int key, int state)
+{
+	if (key == 119)
+		move.w = state;
+	else if (key == 97)
+		move.a = state;
+	else if (key == 115)
+		move.s = state;
+	else if (key == 100)
+		move.d = state;
+	else if (key == 113)
+		move.q = state;
+	else if (key == 101)
+		move.e = state;
+	if (key == 0x0020)
+		move.mx = move.my = state;
+}
+
+// static
+// void	process_move_input(int key)
+// {
+
+// }
+
+// struct timespec start, end;
+// clock_gettime(CLOCK_MONOTONIC_RAW, &start);
+// //do stuff
+// clock_gettime(CLOCK_MONOTONIC_RAW, &end);
+
+// uint64_t delta_us = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_nsec - start.tv_nsec) / 1000;
+static float ft; // frametime;
 void think(void *param)
 {
 	draw(((data*)param)->a, ((data*)param)->w);
 	try_present(((data*)param)->a);
+	ft = 1.f;
+	cam_move(&((data*)param)->w->cam, ft);
+	cam_rotate_mouse(&((data*)param)->w->cam, .01f);
+	// *(int*)&move = 0;
 	return;
 }
 
-void key(int key, void *param)
+void key_down(int key, void *param)
 {
-	if (key == 113 or key == 65307)
+	if (/*key == 113 or */key == 65307)
 		mlx_loop_end(((data *)param)->a->mlx);
+	set_move_input(key, -1);
+}
+
+void key_up(int key, void *param)
+{
+	if (/*key == 113 or */key == 65307)
+		mlx_loop_end(((data *)param)->a->mlx);
+	set_move_input(key, 0);
 }
 
 void try_present(t_app *app)
@@ -196,9 +345,12 @@ int	main(int argc, char const **argv)
 	InitDebugWorld(&world);
 
 	app_init(&app, argc, argv);
+	/* test: */ mlx_do_key_autorepeatoff(app.mlx); /* end of test */
 	app_hook_add(&app, (t_hook const[]){
 		{APP_HOOK_THINK, &think, &d},
-		{APP_HOOK_KEY_UP, &key, &d},
+		{APP_HOOK_KEY_DOWN, &key_down, &d},
+		{APP_HOOK_KEY_UP, &key_up, &d},
+		{APP_HOOK_MOUSE_MOVE, &on_mouse_move, &d},
 		{APP_HOOK_END_SENTINEL, NULL, NULL}
 	});
 	app_run(&app);
