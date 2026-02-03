@@ -14,5 +14,6 @@ struct s_cylinder
 	t_f32	r;		/* Radius.		*/
 	t_f32	h;		/* Height.		*/
 };
+typedef struct s_cylinder t_cylinder;
 
 #endif
