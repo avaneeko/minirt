@@ -11,6 +11,7 @@
 #include "hit_def.h"
 #include "sphere_intersection.h"
 #include "plane_intersection.h"
+#include "cylinder_intersection.h"
 
 typedef struct{t_app *a; t_world *w;} data;
 
@@ -94,8 +95,15 @@ intersect(t_world const *world, t_ray const *ray)
 		.hit = &hit,
 	});
 
-	/* UNDONE: */
-	/* Intersect cylinder. */
+	intersect_cylinders(
+		&(t_cylinder_intersection_desc const){
+		.cylinders = world->objs.cylinders,
+		.cylinder_len = world->objs.cylinder_len,
+		.ray = *ray,
+		.dist_min = 0.f,
+		.dist_max = hit.dist,
+		.hit = &hit,
+	});
 
 	return hit;
 }
