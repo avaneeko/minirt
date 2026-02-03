@@ -43,7 +43,6 @@ static
 void	register_hooks(void *mlx, void *wnd)
 {
 	mlx_hook(wnd, 17, 0, (void *)hk_end, mlx);
-	mlx_do_key_autorepeatoff(mlx);
 }
 
 /**
