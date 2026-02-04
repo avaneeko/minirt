@@ -1,6 +1,7 @@
 #include "world_def.h"
 #include "sphere_def.h"
 #include "plane_def.h"
+#include "cylinder_def.h"
 #include "cam.h"
 #include <unistd.h>
 #include <stdlib.h>
@@ -52,6 +53,24 @@ InitSpheres(t_sphere **spheres, t_u32 *len, t_u32 *cap)
 	*cap = 16;
 }
 
+static void
+InitCylinders(t_cylinder **cylinders, t_u32 *len, t_u32 *cap)
+{
+	if ((*cylinders = malloc(16 * sizeof(t_cylinder))) == NULL)
+	{
+		write(2, "Out of memory\r\n", 15);
+		_Exit(-1);
+	}
+	(*cylinders)[0].pos = (t_v3){0.f,35.f,0.f};
+	(*cylinders)[0].ang = (t_v3){1.0f, 2.0f, 1.0f};
+	(*cylinders)[0].r = 12.6f / 2.f;
+	(*cylinders)[0].h = 10.0f;
+	(*cylinders)[0].col = (t_v3){10 / 255.f, 0 / 255.f, 255 / 255.f};
+
+	*len = 1;
+	*cap = 16;
+}
+
 /**
  * Plane:
  * pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
@@ -74,7 +93,7 @@ InitPlanes(t_plane **planes, t_u32 *len, t_u32 *cap)
 	(*planes)[0].ang = (t_v3){0.0f, 1.0f, 0.0f};
 	(*planes)[0].col = (t_v3){0.f, 0.f, 1.f};
 
-	*len = 1;
+	*len = 0;
 	*cap = 16;
 }
 
@@ -90,6 +109,7 @@ InitDebugWorld(t_world *world)
 	InitCamera(&world->cam);
 	InitSpheres(&world->objs.spheres, &world->objs.sphere_len, &world->objs.sphere_cap);
 	InitPlanes(&world->objs.planes, &world->objs.plane_len, &world->objs.plane_cap);
+	InitCylinders(&world->objs.cylinders, &world->objs.cylinder_len, &world->objs.cylinder_cap);
 	world->cam.fwd = (t_v3){0.f, 1.f, 0.f};
 	world->cam.fov = 1.22173048f;
 

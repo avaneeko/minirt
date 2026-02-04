@@ -24,29 +24,6 @@ void draw(t_app *app, t_world const *world);
 void try_present(t_app *app);
 t_ray ray_from_pixel(t_cam const *cam, int x, int y);
 
-//copypasted into sphere_intersection.c :)
-//int	ray_intersect_sphere(t_sphere const *sp, t_ray const *r) {
-//	t_v3 oc;
-//	t_f32 a;
-//	t_f32 b;
-//	t_f32 c;
-//	t_f32 discriminant;
-//
-//	v3_sub(&sp->pos, &r->pos, &oc);
-//	a = v3_dot(&r->dir, &r->dir);
-//	b = -2.0 * v3_dot(&r->dir, &oc);
-//	c = v3_dot(&oc, &oc) - sp->r*sp->r;
-//	discriminant = b*b - 4*a*c;
-//
-//	if (discriminant < 0.0f)
-//		return 0;
-//	discriminant = sqrtf(discriminant);
-//
-//	return (((-b - discriminant) / (2.0f * a)) > 1e-4f
-//		or ((-b + discriminant) / (2.0f * a)) > 1e-4f);
-//}
-// we replace this with intersect, which then becomes the "shading function"
-
 static t_f32 clamp01(t_f32 x)
 {
 	if (x < 0.0f) return 0.0f;
