@@ -62,7 +62,7 @@ InitCylinders(t_cylinder **cylinders, t_u32 *len, t_u32 *cap)
 		_Exit(-1);
 	}
 	(*cylinders)[0].pos = (t_v3){0.f,35.f,0.f};
-	(*cylinders)[0].ang = (t_v3){1.0f, 2.0f, 1.0f};
+	(*cylinders)[0].ang = (t_v3){1.0f, 0.0f, 0.0f};
 	(*cylinders)[0].r = 12.6f / 2.f;
 	(*cylinders)[0].h = 10.0f;
 	(*cylinders)[0].col = (t_v3){10 / 255.f, 0 / 255.f, 255 / 255.f};
