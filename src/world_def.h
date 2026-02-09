@@ -8,16 +8,18 @@
 
 # include "minitypes.h"
 # include "cam_def.h"
+# include "light_def.h"
+# include "ambient_def.h"
 
 /* fw */
-struct s_sphere;
-typedef struct s_sphere t_sphere;
+struct						s_sphere;
+typedef struct s_sphere		t_sphere;
 
-struct s_plane;
-typedef struct s_plane t_plane;
+struct						s_plane;
+typedef struct s_plane		t_plane;
 
-struct s_cylinder;
-typedef struct s_cylinder t_cylinder;
+struct						s_cylinder;
+typedef struct s_cylinder	t_cylinder;
 
 struct s_objs
 {
@@ -31,14 +33,16 @@ struct s_objs
 	t_u32		cylinder_len;
 	t_u32		cylinder_cap;
 };
-typedef struct s_objs t_objs;
+typedef struct s_objs		t_objs;
 
 struct s_world
 {
-	t_objs	objs;
-	t_cam	cam;
-	t_u32	bg_col;	/* xrgb */
+	t_objs		objs;		/* World geometry.				*/
+	t_cam		cam;		/* Camera.						*/
+	t_light		light;		/* Point light.				*/
+	t_ambient	ambient;	/* Ambient light.				*/
+	t_u32		bg_col;		/* Background color in xrgb.	*/
 };
-typedef struct s_world t_world;
+typedef struct s_world		t_world;
 
 #endif
