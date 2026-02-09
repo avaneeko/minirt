@@ -43,11 +43,11 @@ InitSpheres(t_sphere **spheres, t_u32 *len, t_u32 *cap)
 
 	(*spheres)[2].pos = (t_v3){-20.f,42.f,5.f};
 	(*spheres)[2].r = 12.6f / 2.f;
-	(*spheres)[2].col = (t_v3){10 / 255.f, 0 / 255.f, 255 / 255.f};
+	(*spheres)[2].col = (t_v3){60.f / 255.f, 0 / 255.f, 0 / 255.f};
 
 	(*spheres)[3].pos = (t_v3){20.f,42.f,-17.f};
 	(*spheres)[3].r = 12.6f / 4.f;
-	(*spheres)[3].col = (t_v3){10 / 255.f, 0 / 255.f, 255 / 255.f};
+	(*spheres)[3].col = (t_v3){60.f / 255.f, 60.f / 255.f, 0 / 255.f};
 
 	*len = 4;
 	*cap = 16;
@@ -65,7 +65,7 @@ InitCylinders(t_cylinder **cylinders, t_u32 *len, t_u32 *cap)
 	(*cylinders)[0].ang = (t_v3){0.0f, 0.0f, 1.0f};
 	(*cylinders)[0].r = 12.6f / 2.f;
 	(*cylinders)[0].h = 10.0f;
-	(*cylinders)[0].col = (t_v3){10 / 255.f, 0 / 255.f, 255 / 255.f};
+	(*cylinders)[0].col = (t_v3){10.f / 255.f, 0 / 255.f, 255 / 255.f};
 
 	*len = 1;
 	*cap = 16;
@@ -97,6 +97,17 @@ InitPlanes(t_plane **planes, t_u32 *len, t_u32 *cap)
 	*cap = 16;
 }
 
+static void
+InitLights(t_light *l, t_ambient *a)
+{
+	l->pos = (t_v3){0.f, 15.f, 0.f};
+	l->bright = 1.f;
+	l->col = (t_v3){1.f, 1.f, 1.f};
+
+	a->bright = .1f;
+	a->col = (t_v3){1.f, 1.f, 1.f};
+}
+
 /**
  * Initialize a debug world.
  *
@@ -110,6 +121,7 @@ InitDebugWorld(t_world *world)
 	InitSpheres(&world->objs.spheres, &world->objs.sphere_len, &world->objs.sphere_cap);
 	InitPlanes(&world->objs.planes, &world->objs.plane_len, &world->objs.plane_cap);
 	InitCylinders(&world->objs.cylinders, &world->objs.cylinder_len, &world->objs.cylinder_cap);
+	InitLights(&world->light, &world->ambient);
 	world->cam.fwd = (t_v3){0.f, 1.f, 0.f};
 	world->cam.fov = 1.22173048f;
 

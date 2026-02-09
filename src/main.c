@@ -12,6 +12,7 @@
 #include "sphere_intersection.h"
 #include "plane_intersection.h"
 #include "cylinder_intersection.h"
+#include "shading.h"
 
 typedef struct{t_app *a; t_world *w;} data;
 
@@ -294,7 +295,14 @@ void draw(t_app *app, t_world const *world)
 			t_hit const hit = intersect(world, &ray);
 			if (hit.dist != __FLT_MAX__)
 			{
-				t_v3 c = normal_to_rgb(hit.norm);
+				/** World normals.
+				 	t_v3 c = normal_to_rgb(hit.norm);
+				 */
+				t_v3 c = shade(&hit, &(t_shading_desc const){
+					.light = &world->light,
+					.ambient = &world->ambient,
+					.flags = SHADE_DIFFUSE,
+				});
 				px[y*WINDOW_WIDTH + x] = rgb_to_u32(c);
 				// px[y*WINDOW_WIDTH + x] = mk_col_xrgb(255 * ((float)x / (WINDOW_WIDTH-1)), 0, 255 * ((float)y / (WINDOW_HEIGHT-1)));
 			}

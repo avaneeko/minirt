@@ -23,6 +23,7 @@ src/dbg_wrld.c \
 src/err.c \
 src/main.c \
 src/plane_intersection.c \
+src/shading.c \
 src/sphere_intersection.c \
 src/utils2.c \
 src/utils3.c \
