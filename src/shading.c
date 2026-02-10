@@ -2,31 +2,32 @@
 #include "v3.h"
 #include <math.h>
 
+/**
+ * dist2 and inv_dist are shortened into dist[2].
+ *
+ * dist[0] is dist2. Distance squared.
+ * dist[1] is inv_dist. Inverse distance.
+ */
 static
-t_v3 shade_diffuse(t_light const *l, t_hit const *hit)
+t_v3	shade_diffuse(t_light const *l, t_hit const *hit)
 {
-	t_v3	to_l; /* To light */
-	t_f32	dist2;
-	t_f32	inv_dist;
+	t_v3	to_l;
 	t_v3	ldir;
 	t_f32	ndotl;
+	t_f32	dist[2];
 	t_v3	c;
 
-	/* to_l = LightPos - HitPos */
 	v3_sub(&l->pos, &hit->pos, &to_l);
-	dist2 = v3_dot(&to_l, &to_l);
-	if (dist2 <= 1e-12f) /* Anti Self-Shadowing. */
+	dist[0] = v3_dot(&to_l, &to_l);
+	if (dist[0] <= 1e-12f)
 		return ((t_v3){0, 0, 0});
-
-	inv_dist = 1.f / sqrtf(dist2);
-	ldir.x = to_l.x * inv_dist;
-	ldir.y = to_l.y * inv_dist;
-	ldir.z = to_l.z * inv_dist;
-
+	dist[1] = 1.f / sqrtf(dist[0]);
+	ldir.x = to_l.x * dist[1];
+	ldir.y = to_l.y * dist[1];
+	ldir.z = to_l.z * dist[1];
 	ndotl = v3_dot(&hit->norm, &ldir);
 	if (ndotl < 0.0f)
 		ndotl = 0.0f;
-
 	v3_mul(&l->col, &hit->col, &c);
 	c.x *= l->bright * ndotl;
 	c.y *= l->bright * ndotl;
