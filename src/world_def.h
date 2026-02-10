@@ -39,9 +39,10 @@ struct s_world
 {
 	t_objs		objs;		/* World geometry.				*/
 	t_cam		cam;		/* Camera.						*/
-	t_light		light;		/* Point light.				*/
+	t_light		light;		/* Point light.					*/
 	t_ambient	ambient;	/* Ambient light.				*/
 	t_u32		bg_col;		/* Background color in xrgb.	*/
+	t_u8		is_set;		/* Parser state.				*/
 };
 typedef struct s_world		t_world;
 

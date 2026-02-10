@@ -14,6 +14,7 @@ struct s_cam
 	t_f32	aspect;	/* Aspect ratio. */
     t_f32	half_w;	/* Half of window width. */
     t_f32	half_h;	/* Half of window height. */
+	t_u8	is_set;	/* Parser state. */
 };
 typedef struct s_cam t_cam;
 

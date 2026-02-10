@@ -1,6 +1,7 @@
 #include "minirt.h"
 #include "world_def.h"
 #include "sphere_def.h"
+#include "parsing.h"
 
 /* test */
 #pragma region test
@@ -344,8 +345,9 @@ int	main(int argc, char const **argv)
 	t_app	app;
 	t_world world;
 	data d = (data){&app, &world};
-	InitDebugWorld(&world);
-
+	// InitDebugWorld(&world);
+	world_init(&world);
+	parsing(&world, argc, argv[1]);
 	app_init(&app, argc, argv);
 	app_hook_add(&app, (t_hook const[]){
 		{APP_HOOK_THINK, &think, &d},
