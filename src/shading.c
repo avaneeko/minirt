@@ -35,19 +35,47 @@ t_v3	shade_diffuse(t_light const *l, t_hit const *hit)
 	return (c);
 }
 
-t_v3	shade(t_hit const *hit, t_shading_desc const *desc)
+static
+t_v3	shade_ambient(t_ambient const *a, t_v3 obj_color)
 {
 	t_v3	ret;
 
+	v3_mul(&a->col, &obj_color, &ret);
+	ret.x *= a->bright;
+	ret.y *= a->bright;
+	ret.z *= a->bright;
+	return (ret);
+}
+
+/**
+ * Blends the final colors from all passes. Clamps to 1 meaning that the object
+ * is fully lit.
+ */
+static
+t_v3	clamp_blend(t_v3 ambient, t_v3 diffuse, t_v3 shadows)
+{
+	t_v3	color;
+
+	v3_add(&ambient, &diffuse, &color);
+	v3_add(&color, &shadows, &color);
+	return ((t_v3){
+		fminf(color.x, 1.f), fminf(color.y, 1.f), fminf(color.z, 1.f)
+	});
+}
+
+t_v3	shade(t_hit const *hit, t_shading_desc const *desc)
+{
+	t_v3	ambient;
+	t_v3	diffuse;
+	t_v3	shadows;
+
+	ambient = (t_v3){0, 0, 0};
+	diffuse = (t_v3){0, 0, 0};
+	shadows = (t_v3){0, 0, 0};
 	if (desc->flags & SHADE_AMBIENT)
-	{
-		__builtin_printf("%s:%u %s: %s",
-			__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(),
-			"t_desc_shading_desc.flags & SHADE_AMBIENT is not implemented.\n");
-		__builtin_abort();
-	}
+		ambient = shade_ambient(desc->ambient, hit->col);
 	if (desc->flags & SHADE_DIFFUSE)
-		ret = shade_diffuse(desc->light, hit);
+		diffuse = shade_diffuse(desc->light, hit);
 	if (desc->flags & SHADE_SHADOWS)
 	{
 		__builtin_printf("%s:%u %s: %s",
@@ -55,5 +83,5 @@ t_v3	shade(t_hit const *hit, t_shading_desc const *desc)
 			"t_desc_shading_desc.flags & SHADE_SHADOWS is not implemented.\n");
 		__builtin_abort();
 	}
-	return (ret);
+	return (clamp_blend(ambient, diffuse, shadows));
 }

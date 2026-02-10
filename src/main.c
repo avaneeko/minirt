@@ -301,7 +301,7 @@ void draw(t_app *app, t_world const *world)
 				t_v3 c = shade(&hit, &(t_shading_desc const){
 					.light = &world->light,
 					.ambient = &world->ambient,
-					.flags = SHADE_DIFFUSE,
+					.flags = SHADE_AMBIENT | SHADE_DIFFUSE,
 				});
 				px[y*WINDOW_WIDTH + x] = rgb_to_u32(c);
 				// px[y*WINDOW_WIDTH + x] = mk_col_xrgb(255 * ((float)x / (WINDOW_WIDTH-1)), 0, 255 * ((float)y / (WINDOW_HEIGHT-1)));
