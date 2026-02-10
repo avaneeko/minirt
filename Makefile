@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/02/10 16:40:45 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/02/10 17:11:04 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ OBJ := $(SRC:src/%.c=obj/%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx-linux -MMD -MP $(CF)
+CFLAGS := -Wall -Wextra -Werror -Wno-error=unused-function -Isrc -Iminilibx-linux -MMD -MP $(CF)
 LDFLAGS := -L. -lm -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)

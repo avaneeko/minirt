@@ -78,6 +78,7 @@ t_v3	shade(t_hit const *hit, t_shading_desc const *desc)
 		diffuse = shade_diffuse(desc->light, hit);
 	if (desc->flags & SHADE_SHADOWS)
 	{
+		
 		__builtin_printf("%s:%u %s: %s",
 			__builtin_FILE(), __builtin_LINE(), __builtin_FUNCTION(),
 			"t_desc_shading_desc.flags & SHADE_SHADOWS is not implemented.\n");
