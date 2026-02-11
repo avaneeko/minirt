@@ -6,7 +6,7 @@
 #    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/02/10 17:11:04 by jinzhang         ###   ########.fr        #
+#    Updated: 2026/02/10 20:04:49 by jinzhang         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ src/plane_intersection.c \
 src/shading.c \
 src/sphere_intersection.c \
 src/string_utils.c \
+src/shadow.c \
 src/utils2.c \
 src/utils3.c \
 src/utils.c \

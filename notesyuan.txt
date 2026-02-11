@@ -1,0 +1,301 @@
+make CF='-Wno-all' LDF='-L/opt/X11/lib'
+
+Phase 1: Geometry
+
+Rays
+
+Intersections
+
+Finding closest hit
+
+Phase 2: Shading
+
+Light
+
+Ambient
+
+Diffuse
+
+Shadow rays
+
+
+Calculates the magnitude (length) of the vector and returns the result as a float (this is simply the equation sqrt(x*x + y*y + z*z).)
+
+vector（向量）不是“一个点”， 它是 “一个方向 + 一个长度” (1, 2, 3)意思是：“朝某个方向走这么多”
+
+2️What “one frame” means in a program
+
+In a graphical program, one frame usually means:
+(Update the world state (positions, camera, etc.)
+Draw a picture based on that state
+Show the picture on the screen
+That entire cycle = one frame)
+
+在 MiniRT里，一帧通常意味着： 对屏幕上的每一个像素,发射一条 ray, 计算它打到什么, 决定这个像素的颜色
+所以一帧其实是： 一次完整的光线追踪
+
+CAMINIT: 先用 forward + 一个临时的 up，算出 right
+再用 right + forward，算出真正的 up
+chooseup 看 choose_up
+up = (0,0,1);
+if (fabs(dot(fwd, up)) < 0.999)
+    return up;
+
+fabsf(v3_dot(&cam->fwd, &up)) < 0.999f
+Dot product = “how aligned are two directions”
+The dot product tells:
+Are these two vectors pointing in the same direction?
+Result range (for unit vectors):
+Situation	dot value
+Same direction	+1
+Opposite direction	-1
+90° perpendicular	0
+Almost parallel	close to ±1
+
+v3_cross(&cam->right, &cam->fwd, &cam->up); 用“前”和“上”，算出“右”
+因为 叉积（cross product） 的定义是：
+a × b = 一个同时垂直于 a 和 b 的向量
+所以： forward × up = right
+
+一、什么是 aspect（宽高比）
+cam->aspect = (t_f32)WINDOW_WIDTH / (t_f32)WINDOW_HEIGHT;
+人话：
+屏幕是胖的，还是瘦的？
+例子：
+800 × 600 → aspect = 1.33
+1920 × 1080 → aspect = 1.78（更宽）
+为什么要知道这个？
+因为：
+屏幕如果是“宽的”
+那你看到的世界就应该是“横向更展开的”
+否则画面会被拉伸 / 压扁
+
+
+
+ray_from_pixel:
+ray.origin = 相机位置
+ray.dir    = 看的方向
+第二步：sx / sy 在“人话”里是什么
+sx 是什么？
+
+sx = 这个像素在屏幕上，
+离“中间”有多靠左 / 多靠右
+
+sx = 0 → 正中间
+
+sx > 0 → 在右边
+
+sx < 0 → 在左边
+
+sy 是什么？
+
+sy = 这个像素在屏幕上，
+离“中间”有多靠上 / 多靠下
+
+sy = 0 → 正中间
+
+sy > 0 → 在上面
+
+sy < 0 → 在下面
+
+sx / sy 只是“偏移量”
+
+第三步：那 (2*u - 1) 在干嘛？（不讲数学）
+
+我们只看它在做什么，不问为什么。
+
+u 原来是什么？
+u = 0    → 最左边
+u = 0.5  → 中间
+u = 1    → 最右边
+
+
+但我们想要的是：
+
+左边   → -1
+中间   →  0
+右边   → +1
+
+
+(2*u - 1) 做的唯一一件事就是：
+
+把“0～1”，变成“-1～+1”
+
+你可以直接记：
+
+u 是什么	2*u-1 结果	意义
+0	-1	最左
+0.5	0	中间
+1	+1	最右
+
+不需要问“为什么这样算”，
+只要知道它在换坐标范围。
+
+第四步：* cam->half_w 是干嘛的？
+
+这一步也只做一件事：
+
+把“比例”，变成“真实大小”
+
+2*u - 1 只是说：左 / 中 / 右
+
+half_w 才决定：
+“这个屏幕到底有多宽”
+
+所以：
+
+sx = (2*u - 1) * cam->half_w;
+
+
+人话就是：
+
+sx = 这个像素，
+在屏幕上，
+离中心向左 / 向右偏了多远
+
+第五步：sy 那一行完全一样（只是方向反过来）
+sy = (1.0f - 2.0f * v) * cam->half_h;
+
+
+这一行你只需要记：
+
+sy > 0 → 上面
+
+sy < 0 → 下面
+
+1 - 2*v 只是因为：
+
+屏幕 y 是“从上往下数”
+
+世界 y 是“从下往上”
+
+这是坐标系翻转，不是新概念
+
+第六步：现在最关键的一句（不要跳）
+/* dir = forward + right*sx + up*sy */
+
+
+我把它翻成一句完全没有数学的中文：
+
+先看正前方，
+如果这个像素在右边，就往右偏 sx，
+如果这个像素在上面，就往上偏 sy。
+
+就这么简单。
+
+第七步：下面三行只是“拆开来写”
+dir = cam->fwd;
+dir.x += cam->right.x * sx + cam->up.x * sy;
+dir.y += cam->right.y * sx + cam->up.y * sy;
+dir.z += cam->right.z * sx + cam->up.z * sy;
+
+
+它们等价于这一句（你已经见过）：
+
+dir = fwd + right*sx + up*sy;
+
+
+没有新逻辑，只是把向量加法写成 x/y/z。
+
+第八步：你现在可以这样“理解整个过程”
+对每一个像素：
+
+它在屏幕上 → 偏左还是偏右？ → sx
+
+它在屏幕上 → 偏上还是偏下？ → sy
+
+从相机：
+
+先看前面
+
+再往右 / 左偏 sx
+
+再往上 / 下偏 sy
+
+得到一条方向 → ray
+
+最重要的一句话（请你记住）
+
+sx / sy 不是数学变量，
+它们只是“这个像素相对屏幕中心偏了多少”。
+
+intersect: FLT_MAX is the maximum value of a float.
+
+Bitwise flags: | and &
+| (bitwise OR)
+
+Meaning: turn ON bits
+
+Used to combine flags.
+
+Example:
+
+#define A 1   // 0001
+#define B 2   // 0010
+#define C 4   // 0100
+
+int flags = A | B;
+
+
+Binary:
+
+0001
+0010
+----
+0011  -> 3
+
+
+So:
+
+flags == 3
+
+
+Add another flag:
+
+flags = flags | C;
+
+
+Binary:
+
+0011
+0100
+----
+0111  -> 7
+
+& (bitwise AND)
+
+Meaning: check if a bit is ON
+
+Used to test a flag.
+
+Example:
+
+flags = 7;        // 0111
+flags & 4;        // check C
+
+
+Binary:
+
+0111
+0100
+----
+0100  -> non-zero -> TRUE
+
+
+So:
+
+if (flags & C)   // true
+
+
+Another example:
+
+flags = 3;       // 0011
+flags & 4;
+
+
+Binary:
+
+0011
+0100
+----
+0000  -> FALSE
