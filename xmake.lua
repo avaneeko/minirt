@@ -44,10 +44,11 @@ target("mlx")
     on_clean(function ()
         local mlxdir = get_config("mlxdir") or "minilibx-linux"
         if os.isdir(mlxdir) then
-            os.exec("$(make) -C %s clean", mlxdir)
+            os.exec("make -C %s clean", mlxdir)
         end
         os.tryrm(path.join(os.projectdir(), "libmlx.a"))
     end)
+	set_policy("build.fence", true)
 
 target("miniRT")
     set_kind("binary")
