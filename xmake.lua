@@ -79,7 +79,11 @@ target("miniRT")
         end
     end)
 
-    -- Linux MLX deps (same as your LDFLAGS)
-    if is_plat("linux") then
-        add_syslinks("Xext", "X11", "m")
-    end
+	if is_plat("macosx") then
+		-- XQuartz
+		add_includedirs("/opt/X11/include")
+		add_linkdirs("/opt/X11/lib")
+		add_syslinks("X11", "Xext", "m")
+	elseif is_plat("linux") then
+		add_syslinks("X11", "Xext", "m")
+	end
