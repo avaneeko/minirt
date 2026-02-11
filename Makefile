@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/07/24 17:33:26 by losypenk          #+#    #+#              #
-#    Updated: 2026/01/13 18:07:18 by jinzhang         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME := miniRT
 
 SRC := \
@@ -39,6 +27,7 @@ src/plane_intersection.c \
 src/shading.c \
 src/sphere_intersection.c \
 src/string_utils.c \
+src/shadow.c \
 src/utils2.c \
 src/utils3.c \
 src/utils.c \

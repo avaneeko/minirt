@@ -48,8 +48,7 @@ static t_v3 normal_to_rgb(t_v3 n)
 	return c;
 }
 
-t_hit
-intersect(t_world const *world, t_ray const *ray)
+t_hit intersect(t_world const *world, t_ray const *ray)
 {
 	t_hit	hit;
 	hit.dist = __FLT_MAX__;
@@ -84,7 +83,7 @@ intersect(t_world const *world, t_ray const *ray)
 		.hit = &hit,
 	});
 
-	return hit;
+	return (hit);
 }
 
 static t_u32 rgb_to_u32(t_v3 c)
@@ -302,7 +301,8 @@ void draw(t_app *app, t_world const *world)
 				t_v3 c = shade(&hit, &(t_shading_desc const){
 					.light = &world->light,
 					.ambient = &world->ambient,
-					.flags = SHADE_AMBIENT | SHADE_DIFFUSE,
+					.world = world,
+					.flags = SHADE_AMBIENT | SHADE_DIFFUSE | SHADE_SHADOWS,
 				});
 				px[y*WINDOW_WIDTH + x] = rgb_to_u32(c);
 				// px[y*WINDOW_WIDTH + x] = mk_col_xrgb(255 * ((float)x / (WINDOW_WIDTH-1)), 0, 255 * ((float)y / (WINDOW_HEIGHT-1)));

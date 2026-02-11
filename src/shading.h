@@ -4,7 +4,6 @@
 # include "shading_desc.h"
 # include "v3_def.h"
 # include "hit_def.h"
-# include "light_def.h"
 
 /**
  * This file defines shading functions, they're run after

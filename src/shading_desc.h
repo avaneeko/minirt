@@ -22,15 +22,17 @@
 
 # include "light_def.h"
 # include "ambient_def.h"
+# include "world_def.h"
 # define SHADE_AMBIENT 1
 # define SHADE_DIFFUSE 2
 # define SHADE_SHADOWS 4
 
 struct s_shading_desc
 {
-	t_light const	*light;		/*	Point light.	*/
-	t_ambient const	*ambient;	/*	Ambient light.	*/
-	int				flags;		/*	Shading flags.	*/
+	t_light const	*light;		/*	Point light.			*/
+	t_ambient const	*ambient;	/*	Ambient light.			*/
+	t_world const	*world;		/*	Shadows require world.	*/
+	int				flags;		/*	Shading flags.			*/
 };
 typedef struct s_shading_desc	t_shading_desc;
 
