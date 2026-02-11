@@ -9,7 +9,6 @@ void push_to_world_plane(t_world *world, t_plane plane)
 	t_plane *new_arr;
 	t_u32 i;
 
-	i = ~0;
 	if (world->objs.plane_len == world->objs.plane_cap)
 	{
 		if(world->objs.plane_cap != 0)
@@ -19,7 +18,8 @@ void push_to_world_plane(t_world *world, t_plane plane)
 		new_arr = malloc(new_cap * sizeof(t_plane));
 		if (!new_arr)
 			parse_error(EXIT_FAILURE, "Malloc fail.");
-		while (i < world->objs.plane_len)
+		i = ~0;
+		while (++i < world->objs.plane_len)
 			new_arr[i] = world->objs.planes[i];
 		free(world->objs.planes);
 		world->objs.planes = new_arr;
