@@ -18,7 +18,7 @@ int is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
 
 	/*hit position on surface*/
 	shadow_ray.pos = hit->pos;
-	
+
 	/*move the start point a tiny bit outside the surface(in the normal direction), if you start the ray exactly at hit->pos,
 	the ray will immediately hit the same object again. That’s called self-intersection.*/
 	/*1e-4f is around  1 x 10^{-4}*/
@@ -28,7 +28,7 @@ int is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
 
 	/*direction = destination − start (need to normalize it)*/
 	v3_sub(&desc->light->pos, &shadow_ray.pos, &dir_to_light);
-	
+
 	/* length of vector(hit point to light point) */
 	dist_to_light = v3_len(&dir_to_light);
 

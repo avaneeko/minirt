@@ -31,7 +31,7 @@ struct s_shading_desc
 {
 	t_light const	*light;		/*	Point light.			*/
 	t_ambient const	*ambient;	/*	Ambient light.			*/
-	const t_world			*world;		/*	Shadows require world.	*/
+	t_world	const	*world;		/*	Shadows require world.	*/
 	int				flags;		/*	Shading flags.			*/
 };
 typedef struct s_shading_desc	t_shading_desc;

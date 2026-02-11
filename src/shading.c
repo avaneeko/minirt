@@ -1,4 +1,5 @@
 #include "shading.h"
+#include "shadow.h"
 #include "v3.h"
 #include <math.h>
 
