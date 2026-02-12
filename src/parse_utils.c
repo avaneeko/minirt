@@ -76,7 +76,7 @@ t_v3 parse_vec3(char *tok)
 
 	vec_arr = ft_split(tok, ','); //MALLOC
 	if (!vec_arr || !vec_arr[0])
-		parse_error(EXIT_FAILURE, "Vectors nonexistant");
+		exit(0);
 	tok_count = 0;
 	while (vec_arr[tok_count])
 		tok_count++;
