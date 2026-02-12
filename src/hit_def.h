@@ -15,6 +15,6 @@ struct s_hit
 	t_u8	front;	/*	Front or back hit?	*/
 	t_v3	col;	/*	Color.				*/
 };
-typedef struct s_hit t_hit;
+typedef struct s_hit	t_hit;
 
 #endif
