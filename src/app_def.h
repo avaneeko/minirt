@@ -63,6 +63,6 @@ struct s_hook
 	void	*fnptr;	/* Function ptr. */
 	void	*param;	/* Parameter ptr passed to the function. */
 };
-typedef struct s_hook t_hook;
+typedef struct s_hook	t_hook;
 
 #endif
