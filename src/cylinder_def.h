@@ -15,6 +15,6 @@ struct s_cylinder
 	t_f32	h;		/* Height.		*/
 	t_v3	col;	/* Color.		*/
 };
-typedef struct s_cylinder t_cylinder;
+typedef struct s_cylinder	t_cylinder;
 
 #endif
