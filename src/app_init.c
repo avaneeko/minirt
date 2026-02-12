@@ -1,6 +1,8 @@
-#include "minirt.h"
+#include "app.h"
+#include "error_messages.h"
 #include "mlx.h"
 #include "config.h"
+#include <stdlib.h>
 
 /**
  * Creates frame buffers.
@@ -16,10 +18,10 @@ static
 int	c_fb(void *mlx, t_u8 *fb_cnt, void ***fb)
 {
 	*fb = malloc(1 * sizeof(void *));
-	if (not *fb)
+	if (!*fb)
 		return (*fb_cnt = 0);
 	**fb = mlx_new_image(mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (not **fb)
+	if (!**fb)
 	{
 		free(*fb);
 		return (0);
@@ -55,13 +57,13 @@ void	app_init(t_app *app, int argc, char const **argv)
 	app->fb_cnt = 0;
 	app->fpq = 0;
 	app->mlx = mlx_init();
-	if (not app->mlx)
+	if (!app->mlx)
 		app_fatal_error(app, ERR_FATAL_MLX_FAIL);
 	app->wnd = mlx_new_window(app->mlx,
-		WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-	if (not app->wnd)
+			WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
+	if (!app->wnd)
 		app_fatal_error(app, ERR_FATAL_MLX_WND_FAIL);
-	if (not c_fb(app->mlx, &app->fb_cnt, &app->fb))
+	if (!c_fb(app->mlx, &app->fb_cnt, &app->fb))
 		app_fatal_error(app, ERR_FATAL_MLX_FB_FAIL);
 	register_hooks(app->mlx, app->wnd);
 }
