@@ -8,6 +8,7 @@
  */
 
 #include "cylinder_intersection_desc.h"
+#include "v3.h"
 #include <math.h>
 
 static
@@ -47,7 +48,6 @@ int	ray_intersect_cylinder_cap(t_cylinder const *cy, t_v3 cap_center,
     return 1;
 }
 
-static
 void	intersect_cylinder_cap(t_cylinder_intersection_desc const *desc)
 {
 	t_f32	closest;
