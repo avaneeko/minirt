@@ -21,6 +21,6 @@ struct s_plane_intersection_desc
 	t_f32			dist_max;
 	t_hit			*hit;
 };
-typedef struct s_plane_intersection_desc t_plane_intersection_desc;
+typedef struct s_plane_intersection_desc	t_plane_intersection_desc;
 
 #endif
