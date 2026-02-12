@@ -1,9 +1,11 @@
-#include "minirt.h"
+#include "app_def.h"
 #include "mlx.h"
+#include <stdlib.h>
 
 void	app_destroy(t_app const *app)
 {
-	t_s32 i;
+	t_s32	i;
+
 	if (app->mlx)
 	{
 		if (app->wnd)
