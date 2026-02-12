@@ -8,6 +8,7 @@
  */
 
 #include "cylinder_intersection_desc.h"
+#include "v3.h"
 #include <math.h>
 
 /**
@@ -111,7 +112,6 @@ void side_normal(t_cylinder const *cy, t_v3 const *p, t_v3 *out_n)
 	v3_normalize_safe(out_n);
 }
 
-static
 void	intersect_cylinder_side(t_cylinder_intersection_desc const *desc)
 {
 	t_f32	closest;
