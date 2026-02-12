@@ -2,7 +2,6 @@
 # define SHADING_H
 
 # include "shading_desc.h"
-# include "v3_def.h"
 # include "hit_def.h"
 
 /**
