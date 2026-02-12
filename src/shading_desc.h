@@ -15,14 +15,10 @@
  * Use SHADE_* defines in shading_desc.flags to enable passes.
  */
 
-/**
- * UNDONE: How do we encorporate world data or tracing interface
- * for hard shadows?
- */
-
 # include "light_def.h"
 # include "ambient_def.h"
 # include "world_def.h"
+
 # define SHADE_AMBIENT 1
 # define SHADE_DIFFUSE 2
 # define SHADE_SHADOWS 4
