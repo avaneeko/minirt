@@ -13,6 +13,6 @@ struct s_plane
 	t_v3	ang;	/* Angles.		*/
 	t_v3	col;	/* Color.		*/
 };
-typedef struct s_plane t_plane;
+typedef struct s_plane	t_plane;
 
 #endif
