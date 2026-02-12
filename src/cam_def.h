@@ -1,7 +1,7 @@
 #ifndef CAM_DEF_H
 # define CAM_DEF_H
 
-# include "v3.h"
+# include "v3_def.h"
 
 struct s_cam
 {
@@ -12,10 +12,10 @@ struct s_cam
 	t_v3	up;		/* Up vector. */
 	t_f32	fov;	/* Field of view (in radians). */
 	t_f32	aspect;	/* Aspect ratio. */
-    t_f32	half_w;	/* Half of window width. */
-    t_f32	half_h;	/* Half of window height. */
+	t_f32	half_w;	/* Half of window width. */
+	t_f32	half_h;	/* Half of window height. */
 	t_u8	is_set;	/* Parser state. */
 };
-typedef struct s_cam t_cam;
+typedef struct s_cam	t_cam;
 
 #endif
