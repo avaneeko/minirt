@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_intersection_side-0.c                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 14:23:25 by losypenk          #+#    #+#             */
+/*   Updated: 2026/02/16 14:23:25 by losypenk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cylinder_def.h"
 #include "cylinder_side_context_def.h"
 #include "ray_def.h"

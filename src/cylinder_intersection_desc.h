@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_intersection_desc.h                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 14:33:54 by losypenk          #+#    #+#             */
+/*   Updated: 2026/02/16 14:33:54 by losypenk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CYLINDER_INTERSECTION_DESC_H
 # define CYLINDER_INTERSECTION_DESC_H
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sphere_intersection_desc.h                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 14:26:48 by losypenk          #+#    #+#             */
+/*   Updated: 2026/02/16 14:26:48 by losypenk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SPHERE_INTERSECTION_DESC_H
 # define SPHERE_INTERSECTION_DESC_H
 

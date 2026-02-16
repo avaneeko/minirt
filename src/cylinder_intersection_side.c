@@ -1,7 +1,14 @@
-/**
- * This file is included directly since it defines static functions,
- * please do not include it into the build system.
- */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylinder_intersection_side.c                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 14:23:18 by losypenk          #+#    #+#             */
+/*   Updated: 2026/02/16 14:23:19 by losypenk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 /**
  * Defines logic for intersecting the cylinder side (the round tube part).
