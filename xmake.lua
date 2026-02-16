@@ -26,7 +26,7 @@ target("mlx")
 
         if not os.isdir(mlxdir) then
             print("minilibx not found, cloning into: %s", mlxdir)
-            os.exec("git clone --recursive https://github.com/42paris/minilibx-linux %s", mlxdir)
+            os.exec("git clone --recursive --depth=1 https://github.com/42paris/minilibx-linux %s", mlxdir)
         end
 
         -- Build MLX using its own Makefile
