@@ -4,6 +4,7 @@
 # include "ambient_def.h"
 # include "app_def.h"
 # include "app.h"
+# include "aw_pair_def.h"
 # include "cam_def.h"
 # include "cam.h"
 # include "config.h"

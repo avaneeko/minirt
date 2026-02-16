@@ -1,3 +1,4 @@
+#include "aw_pair_def.h"
 #include "minirt.h"
 #include "math.h"
 
@@ -9,8 +10,6 @@
 #include "config.h"
 #include "hit_def.h"
 #include "shading.h"
-
-typedef struct{t_app *a; t_world *w;} data;
 
 void draw(t_app *app, t_world const *world);
 void try_present(t_app *app);
@@ -149,24 +148,30 @@ set_move_input(int key, int state)
 
 void	think(void *param)
 {
-	draw(((data*)param)->a, ((data*)param)->w);
-	try_present(((data*)param)->a);
-	cam_move(&((data*)param)->w->cam, 1.f);
-	cam_rotate_mouse(&((data*)param)->w->cam, .01f);
+	t_aw_pair *const	aw = param;
+
+	draw(aw->a, aw->w);
+	try_present(aw->a);
+	cam_move(&aw->w->cam, 1.f);
+	cam_rotate_mouse(&aw->w->cam, .01f);
 	return;
 }
 
 void	key_down(int key, void *param)
 {
+	t_aw_pair *const	aw = param;
+
 	if (/*key == 113 or */key == 65307)
-		mlx_loop_end(((data *)param)->a->mlx);
+		mlx_loop_end(aw->a->mlx);
 	set_move_input(key, -1);
 }
 
 void key_up(int key, void *param)
 {
+	t_aw_pair *const	aw = param;
+
 	if (/*key == 113 or */key == 65307)
-		mlx_loop_end(((data *)param)->a->mlx);
+		mlx_loop_end(aw->a->mlx);
 	set_move_input(key, 0);
 }
 
@@ -181,20 +186,25 @@ void try_present(t_app *app)
 	app->fpq = 0; /* reset frame queue status */
 }
 
-void draw(t_app *app, t_world const *world)
+static
+void	fill_bg_col(t_u32 *px, t_u32 bg_col)
 {
-	t_u32 *const px = (t_u32 *)mlx_get_data_addr(*app->fb, &(int){0}, &(int){0}, &(int){0});
-	if (!px)
-		return ;
-
 	for (t_u32 y = 0; y < WINDOW_HEIGHT; y++)
 	{
 		for (t_u32 x = 0; x < WINDOW_WIDTH; x++)
 		{
-			px[y*WINDOW_WIDTH + x] = world->bg_col;
+			px[y*WINDOW_WIDTH + x] = bg_col;
 		}
 	}
+}
 
+void draw(t_app *app, t_world const *world)
+{
+	t_u32 *const px = (t_u32 *)mlx_get_data_addr(*app->fb, &(int){0}, &(int){0}, &(int){0});
+
+	if (!px)
+		return ;
+	fill_bg_col(px, world->bg_col);
 	for (t_u32 y = 0; y < WINDOW_HEIGHT; y++)
 	{
 		for (t_u32 x = 0; x < WINDOW_WIDTH; x++)
@@ -223,8 +233,8 @@ int	main(int argc, char const **argv)
 {
 	t_app	app;
 	t_world world;
-	data d = (data){&app, &world};
-	// InitDebugWorld(&world);
+	t_aw_pair d = {&app, &world};
+
 	world_init(&world);
 	parsing(&world, argc, argv[1]);
 	app_init(&app, argc, argv);
