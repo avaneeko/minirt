@@ -10,7 +10,6 @@
 #include "cylinder_intersection_desc.h"
 #include "cylinder_side_context_def.h"
 #include "v3.h"
-#include <math.h>
 
 int	cyl_side_setup(t_cyl_side_ctx *ctx, t_cylinder const *cyl, t_ray const *r);
 int	cyl_side_roots(t_cyl_roots *rt, t_cyl_side_ctx const *ctx);
