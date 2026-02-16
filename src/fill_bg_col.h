@@ -1,0 +1,9 @@
+#ifndef FILL_BG_COL_H
+# define FILL_BG_COL_H
+
+# include "minitypes.h"
+
+void
+fill_bg_col(t_u32 *px, t_u32 bg_col);
+
+#endif

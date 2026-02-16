@@ -13,6 +13,7 @@
 # include "cylinder_intersection.h"
 # include "cylinder_side_context_def.h"
 # include "error_messages.h"
+# include "fill_bg_col.h"
 # include "get_next_line.h"
 # include "hit_def.h"
 # include "intersect.h"

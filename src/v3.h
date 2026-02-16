@@ -55,4 +55,7 @@ v3_dot(t_v3 const *a, t_v3 const *b);
 void
 v3_cross(t_v3 const *a, t_v3 const *b, t_v3 *dst);
 
+t_u32
+v3_rgb_to_u32(t_v3 c);
+
 #endif
