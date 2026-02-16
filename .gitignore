@@ -1,0 +1,11 @@
+.gitignore
+obj/
+minilibx-linux/
+.vscode/
+.vscode/
+.xmake/
+.cache/
+build/
+libmlx.a
+miniRT
+compile_commands.json
