@@ -1,0 +1,23 @@
+#include "ray_from_pixel.h"
+#include "config.h"
+#include "v3.h"
+
+t_ray	ray_from_pixel(t_cam const *cam, int x, int y)
+{
+	t_f32	u;
+	t_f32	v;
+	t_f32	sx;
+	t_f32	sy;
+	t_v3	dir;
+
+	u = ((t_f32)x + 0.5f) / (t_f32)WINDOW_WIDTH;
+	v = ((t_f32)y + 0.5f) / (t_f32)WINDOW_HEIGHT;
+	sx = (2.0f * u - 1.0f) * cam->half_w;
+	sy = (1.0f - 2.0f * v) * cam->half_h;
+	dir = cam->fwd;
+	dir.x += cam->right.x * sx + cam->up.x * sy;
+	dir.y += cam->right.y * sx + cam->up.y * sy;
+	dir.z += cam->right.z * sx + cam->up.z * sy;
+	v3_normalize(&dir);
+	return ((t_ray){cam->pos, dir});
+}

@@ -1,7 +1,5 @@
 #include "minirt.h"
-#include "world_def.h"
-#include "sphere_def.h"
-#include "parsing.h"
+#include "math.h"
 
 /* test */
 #pragma region test
@@ -10,81 +8,13 @@
 #include "mlx.h"
 #include "config.h"
 #include "hit_def.h"
-#include "sphere_intersection.h"
-#include "plane_intersection.h"
-#include "cylinder_intersection.h"
 #include "shading.h"
 
 typedef struct{t_app *a; t_world *w;} data;
 
-void
-InitDebugWorld(t_world *world);
-void
-WorldDump(t_world const *w);
-
 void draw(t_app *app, t_world const *world);
 void try_present(t_app *app);
 t_ray ray_from_pixel(t_cam const *cam, int x, int y);
-
-static t_f32 clamp01(t_f32 x)
-{
-	if (x < 0.0f) return 0.0f;
-	if (x > 1.0f) return 1.0f;
-	return x;
-}
-
-static t_v3 normal_to_rgb(t_v3 n)
-{
-	t_v3 c;
-
-	c.x = (n.x + 1.0f) * 0.5f;
-	c.y = (n.y + 1.0f) * 0.5f;
-	c.z = (n.z + 1.0f) * 0.5f;
-
-	c.x = clamp01(c.x);
-	c.y = clamp01(c.y);
-	c.z = clamp01(c.z);
-
-	return c;
-}
-
-t_hit intersect(t_world const *world, t_ray const *ray)
-{
-	t_hit	hit;
-	hit.dist = __FLT_MAX__;
-
-	intersect_spheres(
-		&(t_sphere_intersection_desc const){
-		.spheres = world->objs.spheres,
-		.sphere_len = world->objs.sphere_len,
-		.ray = *ray,
-		.dist_min = 0.f,
-		.dist_max = hit.dist,
-		.hit = &hit,
-	});
-
-	intersect_planes(
-		&(t_plane_intersection_desc const){
-		.planes = world->objs.planes,
-		.plane_len = world->objs.plane_len,
-		.ray = *ray,
-		.dist_min = 0.f,
-		.dist_max = hit.dist,
-		.hit = &hit,
-	});
-
-	intersect_cylinders(
-		&(t_cylinder_intersection_desc const){
-		.cylinders = world->objs.cylinders,
-		.cylinder_len = world->objs.cylinder_len,
-		.ray = *ray,
-		.dist_min = 0.f,
-		.dist_max = hit.dist,
-		.hit = &hit,
-	});
-
-	return (hit);
-}
 
 static t_u32 rgb_to_u32(t_v3 c)
 {
@@ -138,7 +68,7 @@ int on_mouse_move(int x, int y, void *param)
 {
     (void)param;
 
-    if (last_x >= 0 and not (move.e == move.q and move.q != 0))
+    if (last_x >= 0 && !(move.e == move.q && move.q != 0))
     {
         move.mx += (x - last_x);
         move.my += (y - last_y);
@@ -217,31 +147,16 @@ set_move_input(int key, int state)
 		move.mx = move.my = state;
 }
 
-// static
-// void	process_move_input(int key)
-// {
-
-// }
-
-// struct timespec start, end;
-// clock_gettime(CLOCK_MONOTONIC_RAW, &start);
-// //do stuff
-// clock_gettime(CLOCK_MONOTONIC_RAW, &end);
-
-// uint64_t delta_us = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_nsec - start.tv_nsec) / 1000;
-static float ft; // frametime;
-void think(void *param)
+void	think(void *param)
 {
 	draw(((data*)param)->a, ((data*)param)->w);
 	try_present(((data*)param)->a);
-	ft = 1.f;
-	cam_move(&((data*)param)->w->cam, ft);
+	cam_move(&((data*)param)->w->cam, 1.f);
 	cam_rotate_mouse(&((data*)param)->w->cam, .01f);
-	// *(int*)&move = 0;
 	return;
 }
 
-void key_down(int key, void *param)
+void	key_down(int key, void *param)
 {
 	if (/*key == 113 or */key == 65307)
 		mlx_loop_end(((data *)param)->a->mlx);
@@ -259,24 +174,17 @@ void try_present(t_app *app)
 {
 	/* Try to present the frame if it's queued/ready. */
 
-	if (not app->fpq)
+	if (!app->fpq)
 		return ; /* nothing to present */
 
 	mlx_put_image_to_window(app->mlx, app->wnd, *app->fb, 0, 0);
 	app->fpq = 0; /* reset frame queue status */
 }
 
-t_u32	mk_col_xrgb(t_u8 r, t_u8 g, t_u8 b)
-{
-	return (((t_u32)b & 0xFFu)
-		| (((t_u32)g << 8) & 0xFF00u)
-		| (((t_u32)r << 16) & 0xFF0000u));
-}
-
 void draw(t_app *app, t_world const *world)
 {
 	t_u32 *const px = (t_u32 *)mlx_get_data_addr(*app->fb, &(int){0}, &(int){0}, &(int){0});
-	if (not px)
+	if (!px)
 		return ;
 
 	for (t_u32 y = 0; y < WINDOW_HEIGHT; y++)
@@ -295,9 +203,6 @@ void draw(t_app *app, t_world const *world)
 			t_hit const hit = intersect(world, &ray);
 			if (hit.dist != __FLT_MAX__)
 			{
-				/** World normals.
-				 	t_v3 c = normal_to_rgb(hit.norm);
-				 */
 				t_v3 c = shade(&hit, &(t_shading_desc const){
 					.light = &world->light,
 					.ambient = &world->ambient,
@@ -305,36 +210,10 @@ void draw(t_app *app, t_world const *world)
 					.flags = SHADE_AMBIENT | SHADE_DIFFUSE | SHADE_SHADOWS,
 				});
 				px[y*WINDOW_WIDTH + x] = rgb_to_u32(c);
-				// px[y*WINDOW_WIDTH + x] = mk_col_xrgb(255 * ((float)x / (WINDOW_WIDTH-1)), 0, 255 * ((float)y / (WINDOW_HEIGHT-1)));
 			}
 		}
 	}
 	app->fpq = 1;
-}
-
-t_ray ray_from_pixel(t_cam const *cam, int x, int y)
-{
-	t_f32   u;
-	t_f32   v;
-	t_f32   sx;
-	t_f32   sy;
-	t_v3    dir;
-
-	u = ((t_f32)x + 0.5f) / (t_f32)WINDOW_WIDTH;
-	v = ((t_f32)y + 0.5f) / (t_f32)WINDOW_HEIGHT;
-
-	sx = (2.0f * u - 1.0f) * cam->half_w;
-	sy = (1.0f - 2.0f * v) * cam->half_h;
-
-	/* dir = forward + right*sx + up*sy */
-	dir = cam->fwd;
-	dir.x += cam->right.x * sx + cam->up.x * sy;
-	dir.y += cam->right.y * sx + cam->up.y * sy;
-	dir.z += cam->right.z * sx + cam->up.z * sy;
-
-	v3_normalize(&dir);
-
-	return (t_ray){cam->pos, dir};
 }
 
 #pragma endregion

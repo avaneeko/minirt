@@ -1,18 +1,34 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# include <iso646.h>
-# include <math.h>
-# include <stdio.h>
+# include "ambient_def.h"
 # include "app_def.h"
 # include "app.h"
 # include "cam_def.h"
 # include "cam.h"
 # include "config.h"
+# include "cylinder_def.h"
+# include "cylinder_intersection_desc.h"
+# include "cylinder_intersection.h"
+# include "cylinder_side_context_def.h"
 # include "error_messages.h"
+# include "get_next_line.h"
+# include "hit_def.h"
+# include "intersect.h"
+# include "light_def.h"
 # include "minitypes.h"
+# include "parsing.h"
+# include "plane_def.h"
+# include "plane_intersection_desc.h"
+# include "plane_intersection.h"
 # include "ray_def.h"
+# include "ray_from_pixel.h"
+# include "shading_desc.h"
+# include "shading.h"
+# include "shadow.h"
 # include "sphere_def.h"
+# include "sphere_intersection_desc.h"
+# include "sphere_intersection.h"
 # include "utils.h"
 # include "v3_def.h"
 # include "v3.h"
