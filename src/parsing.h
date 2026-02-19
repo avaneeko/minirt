@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/18 18:10:45 by jinzhang          #+#    #+#             */
+/*   Updated: 2026/02/18 18:11:07 by jinzhang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PARSING_H
 # define PARSING_H
 
-# include <stddef.h>
 # include "world_def.h"
+# include <stddef.h>
 
 typedef struct s_ptrim
 {
@@ -11,47 +23,59 @@ typedef struct s_ptrim
 	int		spaces;
 	char	*old_line;
 	char	*line;
-}	t_ptrim;
+}			t_ptrim;
 
-//parsing/parsing.c
-void	parsing(t_world *world, int ac, char const*filename);
+// parsing.c
+void		parsing(t_world *world, int ac, char const *filename);
 
-//parsing/parse_ambient.c
-void	parse_ambient(t_world *world, char const*line);
+// parse_ambient.c
+int			parse_ambient(t_world *world, char const *line);
 
-//parsing/parse_camera.c
-void	parse_camera(t_world *world, char const*line);
+// parse_camera.c
+int			parse_camera(t_world *world, char const *line);
 
-//parsing/parse_light.c
-void	parse_light(t_world *world, char const*line);
+// parse_light.c
+int			parse_light(t_world *world, char const *line);
 
-//parsing/parse_object.c
-void	parse_sphere(t_world *world, char const*line);
-void	parse_plane(t_world *world, char const*line);
-void	parse_cylinder(t_world *world, char const*line);
-void	push_to_world_sphere(t_world *world, t_sphere sphere);
-//utils/parse_error.c
-void	parse_error(int code, char *s);
+// parse_sphere.c
+int			parse_sphere(t_world *world, char const *line);
 
-//utils/ft_split.c
-char	**ft_split(char const *s, char c);
+// parse_plane.c
+int			parse_plane(t_world *world, char const *line);
 
-//utils/number_utils.c
-double	parse_number(char const *str);
+// parse_cylinder.c
+int			parse_cylinder(t_world *world, char const *line);
 
-//parsing/parse_utils.c
-void	world_init(t_world *world);
-void	check_unit_vector(t_v3 v);
-t_v3	parse_color(char *tok);
-t_v3	parse_vec3(char *tok);
-void	free_split(char **arr);
+// ft_split.c
+char		**ft_split(char const *s, char c);
 
-//utils/string_utils.c
-int		ft_isspace(char c);
-int		ft_strlen(const char *s);
-int		ft_strcmp(char const*s1, char *s2);
-char	*ft_strchr(const char *s, int c);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strdup(char const *s1);
+// number_utils.c
+int			parse_number(char const *str, float *out);
+
+// parse_error.c
+int			parse_error(char *s, char **toks);
+void		parse_clean_exit(char *msg, t_world *world, int fd, char *line);
+void		free_world(t_world *world);
+void		cleanup_memories(t_world *world, int fd, char *line);
+
+// parse_utils.c
+void		world_init(t_world *world);
+int			check_unit_vector(t_v3 v);
+int			parse_color(char *tok, t_v3 *vec_out);
+int			parse_vec3(char *tok, t_v3 *vec_out);
+
+// parse_str_utils.c
+int			ft_isspace(char c);
+int			ft_strcmp(char const *s1, char *s2);
+char		*ft_strchr(const char *s, int c);
+char		*ft_strdup(char const *s1);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+
+// parse_str_utils2.c
+char		*trim_line(char *old_line);
+void		copy_line(t_ptrim *t);
+int			free_split(char **arr);
+int			ft_strlen(const char *s);
+void		*ft_bzero(void *s, size_t n);
 
 #endif

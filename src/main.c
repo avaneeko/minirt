@@ -6,12 +6,13 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:22:41 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:22:42 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:30:18 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "mlx.h"
+#include "parsing.h"
 
 void	draw(t_app *app, t_world const *world);
 
@@ -93,5 +94,6 @@ int	main(int argc, char const **argv)
 	});
 	app_run(&app);
 	app_destroy(&app);
+	free_world(&world);
 	return (0);
 }

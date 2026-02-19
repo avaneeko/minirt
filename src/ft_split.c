@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 20:16:45 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/01/29 15:50:02 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/18 18:13:50 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ static void	*ft_free(char **arr, int index)
 	arr = NULL;
 	return (NULL);
 }
-
 
 static char	**make_arr(char **arr, size_t totalwords, const char *s, char c)
 {

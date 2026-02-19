@@ -1,36 +1,43 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_ambient.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/18 13:24:38 by jinzhang          #+#    #+#             */
+/*   Updated: 2026/02/18 18:23:35 by jinzhang         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ambient_def.h"
 #include "parsing.h"
 #include "world_def.h"
-#include "ambient_def.h"
 #include <stdlib.h>
 
-/*
-Ambient light is global. It does not have: position, direction.
-Token	      Meaning	            Validation
-A	          ambient identifier	must be unique
-0.2	          ambient ratio	        0.0 ≤ value ≤ 1.0 {0.0 no ambient light. 1.0 very strong ambient light. 0.2 soft, realistic background light}
-255,255,255	  RGB color	each        0–255  {255,255,255 = white light  255,0,0 = red ambient light   0,0,255 = blue ambient light}
-*/
-
-void	parse_ambient(t_world *world, char const*line)
+int	parse_ambient(t_world *world, char const *line)
 {
-	int tok_count;
-	char **toks;
+	int		tok_count;
+	char	**toks;
 
-	if (world->ambient.is_set)
-		parse_error(EXIT_FAILURE, "Only one ambient set allowed");
 	tok_count = 0;
 	toks = NULL;
-	toks = ft_split(line, ' '); //MALLOC
+	if (world->ambient.is_set)
+		return (parse_error("Only one ambient set allowed", toks));
+	toks = ft_split(line, ' ');
 	if (!toks || !toks[0])
-		parse_error(EXIT_FAILURE, "Line should start with specifier");
+		return (parse_error("Line should start with specifier", toks));
 	while (toks[tok_count])
 		tok_count++;
 	if (tok_count != 3)
-		parse_error(EXIT_FAILURE, "Ambient light needs 3 tokens");
-	world->ambient.bright = parse_number(toks[1]);
+		return (parse_error("Ambient light needs 3 tokens", toks));
+	if (parse_number(toks[1], &world->ambient.bright))
+		return (parse_error("Invalid ambient brightness", toks));
 	if (world->ambient.bright > 1.0 || world->ambient.bright < 0.0)
-		parse_error(EXIT_FAILURE, "Ratio must be 0.0 - 1.0");
-	world->ambient.col = parse_color(toks[2]);
+		return (parse_error("Ratio must be 0.0 - 1.0", toks));
+	if (parse_color(toks[2], &world->ambient.col))
+		return (parse_error("Invalid ambient color", toks));
 	world->ambient.is_set = 1;
 	free_split(toks);
+	return (0);
 }
