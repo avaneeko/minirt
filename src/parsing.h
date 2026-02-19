@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:10:45 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:10:22 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:03:31 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_H
 
 # include "world_def.h"
+# include "parse_error.h"
 # include <stddef.h>
 
 typedef struct s_ptrim
@@ -74,6 +75,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 // parse_str_utils2.c
 char		*trim_line(char *old_line);
 void		copy_line(t_ptrim *t);
+int			count_comma(char *tok);
 int			free_split(char **arr);
 int			ft_strlen(const char *s);
 

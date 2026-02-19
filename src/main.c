@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:22:41 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/19 11:30:18 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:46:19 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char const **argv)
 	world_init(&world);
 	parsing(&world, argc, argv[1]);
 	cam_init(&world.cam);
-	app_init(&app, argc, argv);
+	app_init(&app, &world, argc, argv);
 	app_hook_add(&app, (t_hook const []){
 	{APP_HOOK_THINK, &think, (void *)&d},
 	{APP_HOOK_KEY_UP, &on_key_up, (void *)&d},

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cylinder.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:25:44 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:19:38 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 13:59:49 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

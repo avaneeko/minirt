@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:35:26 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:10:16 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:02:08 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "math.h"
 #include "parsing.h"
+#include "utils.h"
 #include "v3.h"
 #include <stdlib.h>
-#include "utils.h"
 
 void	world_init(t_world *world)
 {
@@ -46,23 +46,6 @@ int	check_unit_vector(t_v3 v)
 	return (0);
 }
 
-int count_comma(char *tok)
-{
-	int comma_count;
-	int i;
-
-	i = 0;
-	comma_count = 0;
-	while(tok[i])
-	{
-    	if (tok[i] == ',')
-        	comma_count++;
-		i++;
-	}
-	if (comma_count != 2)
-    	return (1);
-	return (0);
-}
 int	parse_vec3(char *tok, t_v3 *vec_out)
 {
 	t_v3	vec;
@@ -72,7 +55,7 @@ int	parse_vec3(char *tok, t_v3 *vec_out)
 	tok_count = 0;
 	vec_arr = NULL;
 	if (count_comma(tok))
-		return(1);
+		return (1);
 	vec_arr = ft_split(tok, ',');
 	if (!vec_arr || !vec_arr[0])
 		return (free_split(vec_arr));
@@ -112,7 +95,7 @@ int	parse_color(char *tok, t_v3 *vec_out)
 	tok_count = 0;
 	color_arr = NULL;
 	if (count_comma(tok))
-		return(1);
+		return (1);
 	color_arr = ft_split(tok, ',');
 	if (!color_arr || !color_arr[0])
 		return (free_split(color_arr));

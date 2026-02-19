@@ -6,16 +6,15 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:15:51 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:26:26 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 16:00:59 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "intersect.h"
 #include "ray_def.h"
 #include "shading_desc.h"
 #include "shadow.h"
 #include "v3.h"
-
-t_hit	intersect(t_world const *world, t_ray const *ray);
 
 int	is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
 {

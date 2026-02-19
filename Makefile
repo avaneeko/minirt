@@ -7,7 +7,9 @@ src/app_init.c \
 src/app_run.c \
 src/cam.c \
 src/cylinder_intersection.c \
-src/dbg_wrld.c \
+src/cylinder_intersection_cap.c \
+src/cylinder_intersection_side-0.c \
+src/cylinder_intersection_side.c \
 src/err.c \
 src/ft_split.c \
 src/get_next_line.c \
@@ -22,11 +24,15 @@ src/parse_light.c \
 src/parse_plane.c \
 src/parse_sphere.c \
 src/parse_utils.c \
+src/parse_str_utils.c \
+src/parse_str_utils2.c \
 src/parsing.c \
 src/plane_intersection.c \
 src/shading.c \
 src/sphere_intersection.c \
-src/string_utils.c \
+src/intersect.c \
+src/ray_from_pixel.c \
+src/fill_bg_col.c \
 src/shadow.c \
 src/utils2.c \
 src/utils3.c \
@@ -40,7 +46,7 @@ OBJ := $(SRC:src/%.c=obj/%.o)
 
 CC := cc
 
-CFLAGS := -Wall -Wextra -Werror -Isrc -Iminilibx-linux -MMD -MP $(CF)
+CFLAGS := -g -Wall -Wextra -Werror -Isrc -Iminilibx-linux -MMD -MP $(CF)
 LDFLAGS := -L. -lm -lmlx -lXext -lX11 $(LDF)
 
 all: $(NAME)

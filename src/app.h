@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   app.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:24:17 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:24:17 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 15:50:23 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 # define APP_H
 
 # include "app_def.h"
+# include "world_def.h"
 
 /**
  * App initialization.
  */
 void
-app_init(t_app *app, int argc, char const **argv);
+app_init(t_app *app, t_world *world, int argc, char const **argv);
 
 void
 app_destroy(t_app const *app);
@@ -34,7 +35,7 @@ app_run(t_app const *app);
 /*	Display the error, clean up and exit.									*/
 /*																			*/
 void
-app_fatal_error(t_app *app, char const *msg);
+app_fatal_error(t_app *app, t_world *world, char const *msg);
 
 /**
  * Adds an application hook(s) to the specified events.
