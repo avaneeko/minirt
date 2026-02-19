@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:36:01 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:15:51 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:18:02 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ static int	file_end_with_rt(char const *filename)
 	return (0);
 }
 
-static void file_handler(t_world *world, int *fd, char const *filename)
+static void	file_handler(t_world *world, int *fd, char const *filename)
 {
 	*fd = open(filename, O_RDONLY);
 	if (*fd < 0)
 		parse_clean_exit("File open failed", world, -1, NULL);
 }
 
-void parsing(t_world *world, int ac, char const *filename)
+void	parsing(t_world *world, int ac, char const *filename)
 {
 	char	*old_line;
 	char	*line;
@@ -83,6 +83,6 @@ void parsing(t_world *world, int ac, char const *filename)
 		free(line);
 	}
 	if (!world->ambient.is_set || !world->cam.is_set || !world->light.is_set)
-    	parse_clean_exit("Missing required elements", world, fd, NULL);
+		parse_clean_exit("Missing required elements", world, fd, NULL);
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:25:44 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:04:00 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:19:38 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	fill_cylinder(t_cylinder *cy, char **toks)
 		return (parse_error("Cylinder angle invalid", toks));
 	if (check_unit_vector(cy->ang))
 		return (parse_error("Cylinder angle invalid", toks));
-	if (parse_number(toks[3], &cy->r)) // check in render if /2
+	if (parse_number(toks[3], &cy->r))
 		return (parse_error("Cylinder diameter invalid", toks));
 	if (parse_number(toks[4], &cy->h))
 		return (parse_error("cylinder center position invalid", toks));

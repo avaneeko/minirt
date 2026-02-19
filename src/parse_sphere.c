@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:34:57 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 12:04:30 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:17:02 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	fill_sphere(t_sphere *sp, char **toks)
 {
 	if (parse_vec3(toks[1], &sp->pos))
 		return (parse_error("Invalid sphere position", toks));
-	if (parse_number(toks[2], &sp->r)) // chekc in render if /2
+	if (parse_number(toks[2], &sp->r))
 		return (parse_error("Invalid sphere diameter", toks));
 	if (sp->r <= 0)
 		return (parse_error("Sphere diameter should be > 0", toks));
