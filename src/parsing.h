@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:10:45 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:11:07 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:10:22 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,5 @@ char		*trim_line(char *old_line);
 void		copy_line(t_ptrim *t);
 int			free_split(char **arr);
 int			ft_strlen(const char *s);
-void		*ft_bzero(void *s, size_t n);
 
 #endif

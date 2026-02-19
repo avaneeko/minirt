@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cylinder.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:25:44 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:24:09 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:04:00 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	fill_cylinder(t_cylinder *cy, char **toks)
 		return (parse_error("cylinder center position invalid", toks));
 	if (cy->r <= 0 || cy->h <= 0)
 		return (parse_error("Cylinder diameter and height are > 0", toks));
+	cy->r /= 2.f;
+	cy->h /= 2.f;
 	if (parse_color(toks[5], &cy->col))
 		return (parse_error("Cylinder color invalid", toks));
 	return (0);

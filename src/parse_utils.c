@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:35:26 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 10:54:21 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:10:16 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 #include "parsing.h"
 #include "v3.h"
 #include <stdlib.h>
+#include "utils.h"
 
 void	world_init(t_world *world)
 {
-	ft_bzero(world, sizeof(*world));
+	mset(world, 0, sizeof(*world));
 	world->ambient.is_set = 0;
 	world->cam.is_set = 0;
 	world->light.is_set = 0;

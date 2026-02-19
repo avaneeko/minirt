@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_camera.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:25:14 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:22:18 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:08:56 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	fill_camera(t_world *world, char **toks)
 		return (parse_error("Invalid Camera field of view", toks));
 	if (world->cam.fov < 0 || world->cam.fov > 180)
 		return (parse_error("Field of view range 0 - 180", toks));
+	world->cam.fov *= 0.0174532925;
 	return (0);
 }
 

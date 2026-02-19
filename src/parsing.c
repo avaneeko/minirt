@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:36:01 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 10:40:19 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:15:51 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include "parsing.h"
+#include "utils.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -42,7 +43,7 @@ static int	file_end_with_rt(char const *filename)
 
 	if (!filename[0])
 		return (1);
-	len = ft_strlen(filename);
+	len = slen(filename);
 	if (len < 4)
 		return (1);
 	if (ft_strcmp(filename + len - 3, ".rt"))

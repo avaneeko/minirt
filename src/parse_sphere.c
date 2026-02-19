@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_sphere.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:34:57 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:24:51 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:04:30 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static int	fill_sphere(t_sphere *sp, char **toks)
 		return (parse_error("Invalid sphere diameter", toks));
 	if (sp->r <= 0)
 		return (parse_error("Sphere diameter should be > 0", toks));
+	sp->r /= 2.f;
 	if (parse_color(toks[3], &sp->col))
 		return (parse_error("Invalid sphere color", toks));
 	return (0);

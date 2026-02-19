@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parse_str_utils2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:15:29 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:15:31 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 12:10:21 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
+#include <stdlib.h>
 
 int	ft_strlen(const char *s)
 {
@@ -24,21 +25,6 @@ int	ft_strlen(const char *s)
 		i++;
 	}
 	return (i);
-}
-
-void	*ft_bzero(void *s, size_t n)
-{
-	size_t			i;
-	unsigned char	*str;
-
-	str = (unsigned char *)s;
-	i = 0;
-	while (i < n)
-	{
-		str[i] = '\0';
-		i++;
-	}
-	return (s);
 }
 
 int	free_split(char **arr)

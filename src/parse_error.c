@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_error.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:33:31 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 13:33:33 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:44:10 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "parsing.h"
 #include "unistd.h"
+#include <stdio.h>
 
 int	parse_error(char *s, char **toks)
 {
