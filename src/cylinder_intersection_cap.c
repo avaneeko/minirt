@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:56 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/18 15:18:05 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/02/19 11:37:45 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	fill_hit(t_cylinder_intersection_desc const *desc,
 		desc->hit->norm = desc->cylinders[best_idx].ang;
 	else
 		desc->hit->norm = (t_v3){-desc->cylinders[best_idx].ang.x,
-									-desc->cylinders[best_idx].ang.y,
-									-desc->cylinders[best_idx].ang.z};
+			-desc->cylinders[best_idx].ang.y,
+			-desc->cylinders[best_idx].ang.z};
 	desc->hit->front = (v3_dot(&desc->ray.dir, &desc->hit->norm) < 0.0f);
 	if (!desc->hit->front)
 		v3_scalar_mul(&desc->hit->norm, -1.0f, &desc->hit->norm);
@@ -75,13 +75,12 @@ void	fill_hit(t_cylinder_intersection_desc const *desc,
 static
 int	trace_caps(t_inter_cyl_cap_ctx *ctx, t_u8 *is_bot)
 {
-	t_v3 top;
+	t_v3	top;
 
 	top = ctx->cy->pos;
 	top.x += ctx->cy->ang.x * ctx->cy->h;
 	top.y += ctx->cy->ang.y * ctx->cy->h;
 	top.z += ctx->cy->ang.z * ctx->cy->h;
-
 	mcpy(&ctx->cap_center, &top, sizeof(top));
 	if (ray_intersect_cylinder_cap(ctx))
 	{
@@ -94,13 +93,12 @@ int	trace_caps(t_inter_cyl_cap_ctx *ctx, t_u8 *is_bot)
 static
 int	trace_caps2(t_inter_cyl_cap_ctx *ctx, t_u8 *is_bot)
 {
-	t_v3 bot;
+	t_v3	bot;
 
 	bot = ctx->cy->pos;
 	bot.x -= ctx->cy->ang.x * ctx->cy->h;
 	bot.y -= ctx->cy->ang.y * ctx->cy->h;
 	bot.z -= ctx->cy->ang.z * ctx->cy->h;
-
 	mcpy(&ctx->cap_center, &bot, sizeof(bot));
 	ctx->cap_norm.x = -ctx->cap_norm.x;
 	ctx->cap_norm.y = -ctx->cap_norm.y;
@@ -127,11 +125,13 @@ void	intersect_cylinder_cap(t_cylinder_intersection_desc const *desc)
 	while (++i < desc->cylinder_len)
 	{
 		if (trace_caps(&(t_inter_cyl_cap_ctx)
-			{desc->cylinders + i, desc->cylinders[i].pos,
-			desc->cylinders[i].ang, &desc->ray, desc->dist_min, closest, &d}, &is_bot)
+				{desc->cylinders + i, desc->cylinders[i].pos,
+					desc->cylinders[i].ang, &desc->ray, desc->dist_min, closest,
+					&d}, &is_bot)
 			|| trace_caps2(&(t_inter_cyl_cap_ctx)
-			{desc->cylinders + i, desc->cylinders[i].pos,
-			desc->cylinders[i].ang, &desc->ray, desc->dist_min, closest, &d}, &is_bot))
+				{desc->cylinders + i, desc->cylinders[i].pos,
+					desc->cylinders[i].ang, &desc->ray, desc->dist_min, closest,
+					&d}, &is_bot))
 		{
 			best_idx = i;
 			closest = d;
