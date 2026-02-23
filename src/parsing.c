@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:36:01 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/22 20:36:38 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/23 14:47:44 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ static void	file_handler(t_world *world, int *fd, char const *filename)
 		parse_clean_exit("File open failed", world, -1, NULL);
 }
 
-static int validate_world(t_world *world)
+static int	validate_world(t_world *world)
 {
 	if (!world->cam.is_set)
 		return (1);
 	if (!world->ambient.is_set)
 	{
 		world->ambient.bright = 0.0f;
-		world->ambient.col =(t_v3){0, 0, 0};
+		world->ambient.col = (t_v3){0, 0, 0};
 	}
 	if (!world->light.is_set)
 	{
@@ -73,8 +73,9 @@ static int validate_world(t_world *world)
 		world->light.col = (t_v3){0, 0, 0};
 		world->light.pos = (t_v3){0.0f, 0.0f, 0.0f};
 	}
-	return(0);
+	return (0);
 }
+
 void	parsing(t_world *world, int ac, char const *filename)
 {
 	char	*old_line;
