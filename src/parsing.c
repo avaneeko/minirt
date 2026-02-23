@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 13:36:01 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 14:56:43 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/22 20:36:38 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,23 @@ static void	file_handler(t_world *world, int *fd, char const *filename)
 		parse_clean_exit("File open failed", world, -1, NULL);
 }
 
+static int validate_world(t_world *world)
+{
+	if (!world->cam.is_set)
+		return (1);
+	if (!world->ambient.is_set)
+	{
+		world->ambient.bright = 0.0f;
+		world->ambient.col =(t_v3){0, 0, 0};
+	}
+	if (!world->light.is_set)
+	{
+		world->light.bright = 0.0f;
+		world->light.col = (t_v3){0, 0, 0};
+		world->light.pos = (t_v3){0.0f, 0.0f, 0.0f};
+	}
+	return(0);
+}
 void	parsing(t_world *world, int ac, char const *filename)
 {
 	char	*old_line;
@@ -82,7 +99,7 @@ void	parsing(t_world *world, int ac, char const *filename)
 			parse_clean_exit(NULL, world, fd, line);
 		free(line);
 	}
-	if (!world->ambient.is_set || !world->cam.is_set || !world->light.is_set)
+	if (validate_world(world))
 		parse_clean_exit("Missing required elements", world, fd, NULL);
 	close(fd);
 }

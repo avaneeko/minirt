@@ -6,7 +6,7 @@
 /*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:15:51 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 16:00:59 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/02/22 22:02:54 by jinzhang         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "shadow.h"
 #include "v3.h"
 
-int	is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
+int	 is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
 {
 	t_ray	shadow_ray;
 	t_hit	shadow_hit;
