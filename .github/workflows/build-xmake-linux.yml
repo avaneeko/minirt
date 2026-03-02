@@ -1,0 +1,45 @@
+name: build (miniRT, xmake)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # MLX requirements (per minilibx-linux README): gcc/make + X11/Xext + libbsd :contentReference[oaicite:1]{index=1}
+      - name: Install MLX deps
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq \
+            gcc make \
+            libx11-dev libxext-dev libbsd-dev
+
+      # Recommended: use the official xmake setup action
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      # Optional but I recommend it:
+      # pre-clone MLX so (1) logs are clearer and (2) you can pin a commit later if you want.
+      - name: Fetch minilibx-linux
+        run: |
+          git clone --recursive --depth=1 https://github.com/42Paris/minilibx-linux minilibx-linux
+
+      - name: Configure
+        run: xmake f -y -m release --mlxdir=minilibx-linux
+
+      - name: Build
+        run: xmake -y -vD
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: miniRT-linux
+          path: miniRT
