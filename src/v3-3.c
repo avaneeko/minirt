@@ -6,13 +6,13 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:27:17 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:27:18 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "v3_def.h"
 
-t_f32	v3_dot(t_v3 const *a, t_v3 const *b)
+t_f64	v3_dot(t_v3 const *a, t_v3 const *b)
 {
 	return (a->x * b->x + a->y * b->y + a->z * b->z);
 }

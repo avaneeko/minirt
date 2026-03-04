@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:56 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/19 11:37:45 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:20:29 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ k is f[1]
 static
 int	ray_intersect_cylinder_cap(t_inter_cyl_cap_ctx const *ctx)
 {
-	t_f32 const	denom = v3_dot(&ctx->cap_norm, &ctx->r->dir);
+	t_f64 const	denom = v3_dot(&ctx->cap_norm, &ctx->r->dir);
 	t_v3		oc;
 	t_v3		p;
-	t_f32		f[2];
+	t_f64		f[2];
 	t_v3		v;
 
-	if (fabsf(denom) < 1e-6f)
+	if (fabs(denom) < 1e-6f)
 		return (0);
 	v3_sub(&ctx->cap_center, &ctx->r->pos, &oc);
 	f[0] = v3_dot(&ctx->cap_norm, &oc) / denom;
@@ -54,7 +54,7 @@ int	ray_intersect_cylinder_cap(t_inter_cyl_cap_ctx const *ctx)
 
 static
 void	fill_hit(t_cylinder_intersection_desc const *desc,
-			t_u32 best_idx, t_f32 closest, t_u8 is_bot)
+			t_u32 best_idx, t_f64 closest, t_u8 is_bot)
 {
 	if (best_idx == ~(t_u32)0)
 		return ;
@@ -113,10 +113,10 @@ int	trace_caps2(t_inter_cyl_cap_ctx *ctx, t_u8 *is_bot)
 
 void	intersect_cylinder_cap(t_cylinder_intersection_desc const *desc)
 {
-	t_f32	closest;
+	t_f64	closest;
 	t_u32	best_idx;
 	t_u32	i;
-	t_f32	d;
+	t_f64	d;
 	t_u8	is_bot;
 
 	closest = desc->hit->dist;

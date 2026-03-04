@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:27:06 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/19 12:17:10 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 struct s_v3
 {
-	t_f32	x;
-	t_f32	y;
-	t_f32	z;
+	t_f64	x;
+	t_f64	y;
+	t_f64	z;
 };
 typedef struct s_v3	t_v3;
 

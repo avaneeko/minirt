@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:26:23 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:26:23 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:28:10 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ t_v3	shade_diffuse(t_light const *l, t_hit const *hit)
 {
 	t_v3	to_l;
 	t_v3	ldir;
-	t_f32	ndotl;
-	t_f32	dist[2];
+	t_f64	ndotl;
+	t_f64	dist[2];
 	t_v3	c;
 
 	v3_sub(&l->pos, &hit->pos, &to_l);
 	dist[0] = v3_dot(&to_l, &to_l);
 	if (dist[0] <= 1e-12f)
 		return ((t_v3){0, 0, 0});
-	dist[1] = 1.f / sqrtf(dist[0]);
+	dist[1] = 1.f / sqrt(dist[0]);
 	ldir.x = to_l.x * dist[1];
 	ldir.y = to_l.y * dist[1];
 	ldir.z = to_l.z * dist[1];

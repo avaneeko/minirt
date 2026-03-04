@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:27:20 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:27:20 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,24 @@ void
 v3_div(t_v3 const *a, t_v3 const *b, t_v3 *dst);
 
 void
-v3_scalar_add(t_v3 const *a, t_f32 b, t_v3 *dst);
+v3_scalar_add(t_v3 const *a, t_f64 b, t_v3 *dst);
 
 void
-v3_scalar_sub(t_v3 const *a, t_f32 b, t_v3 *dst);
+v3_scalar_sub(t_v3 const *a, t_f64 b, t_v3 *dst);
 
 void
-v3_scalar_mul(t_v3 const *a, t_f32 b, t_v3 *dst);
+v3_scalar_mul(t_v3 const *a, t_f64 b, t_v3 *dst);
 
 void
-v3_scalar_div(t_v3 const *a, t_f32 b, t_v3 *dst);
+v3_scalar_div(t_v3 const *a, t_f64 b, t_v3 *dst);
 
 void
-v3_muladds(t_v3 const *a, t_v3 const *b, t_f32 t, t_v3 *dst);
+v3_muladds(t_v3 const *a, t_v3 const *b, t_f64 t, t_v3 *dst);
 
-t_f32
+t_f64
 v3_len(t_v3 const *a);
 
-t_f32
+t_f64
 v3_len2(t_v3 const *a);
 
 void
@@ -61,7 +61,7 @@ v3_normalize_to(t_v3 const *a, t_v3 *dst);
 int
 v3_normalize_safe(t_v3 *a);
 
-t_f32
+t_f64
 v3_dot(t_v3 const *a, t_v3 const *b);
 
 void

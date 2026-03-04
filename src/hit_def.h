@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:33 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:23:33 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ struct s_hit
 {
 	t_v3	pos;	/*	Position.			*/
 	t_v3	norm;	/*	Normal. 			*/
-	t_f32	dist;	/*	Distance.			*/
+	t_f64	dist;	/*	Distance.			*/
 	t_u8	front;	/*	Front or back hit?	*/
 	t_v3	col;	/*	Color.				*/
 };

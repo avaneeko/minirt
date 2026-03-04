@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:26:51 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:26:51 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:28:10 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <math.h>
 
 void	fill_hit(t_sphere_intersection_desc const *desc,
-			t_f32 closest, t_u32 best_idx)
+			t_f64 closest, t_u32 best_idx)
 {
 	desc->hit->dist = closest;
 	desc->hit->col = desc->spheres[best_idx].col;
@@ -41,11 +41,11 @@ n[5] is d0
 n[6] is d1
 */
 int	sphere_intersect_dist(t_sphere const *sp, t_ray const *r,
-							t_f32 dist[2],
-							t_f32 *out_dist)
+							t_f64 dist[2],
+							t_f64 *out_dist)
 {
 	t_v3	oc;
-	t_f32	n[7];
+	t_f64	n[7];
 
 	v3_sub(&sp->pos, &r->pos, &oc);
 	n[0] = v3_dot(&r->dir, &r->dir);
@@ -54,7 +54,7 @@ int	sphere_intersect_dist(t_sphere const *sp, t_ray const *r,
 	n[3] = n[1] * n[1] - 4.0f * n[0] * n[2];
 	if (n[3] < 0.0f)
 		return (0);
-	n[4] = sqrtf(n[3]);
+	n[4] = sqrt(n[3]);
 	n[5] = (-n[1] - n[4]) / (2.0f * n[0]);
 	n[6] = (-n[1] + n[4]) / (2.0f * n[0]);
 	if (n[5] >= dist[0] && n[5] <= dist[1])
@@ -66,10 +66,10 @@ int	sphere_intersect_dist(t_sphere const *sp, t_ray const *r,
 
 void	intersect_spheres(t_sphere_intersection_desc const *desc)
 {
-	t_f32			closest;
+	t_f64			closest;
 	t_u32			best_idx;
 	t_u32			i;
-	t_f32			d;
+	t_f64			d;
 
 	closest = desc->hit->dist;
 	best_idx = ~(t_u32)0;
@@ -77,7 +77,7 @@ void	intersect_spheres(t_sphere_intersection_desc const *desc)
 	while (i < desc->sphere_len)
 	{
 		if (sphere_intersect_dist(desc->spheres + i, &desc->ray,
-				(float []){desc->dist_min, closest}, &d))
+				(t_f64 []){desc->dist_min, closest}, &d))
 		{
 			closest = d;
 			best_idx = i;

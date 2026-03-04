@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:18 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:23:19 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	cyl_side_setup(t_cyl_side_ctx *ctx, t_cylinder const *cyl, t_ray const *r);
 int	cyl_side_roots(t_cyl_roots *rt, t_cyl_side_ctx const *ctx);
-int	cyl_side_pick_t(t_f32 *out_t, t_cyl_roots const *rt,
+int	cyl_side_pick_t(t_f64 *out_t, t_cyl_roots const *rt,
 		t_cyl_side_ctx const *ctx, t_ray_limits const *lim);
 
 /**
@@ -35,7 +35,7 @@ int	ray_intersect_cylinder_side(t_cylinder const *cyl, t_ray const *r,
 {
 	t_cyl_side_ctx	ctx;
 	t_cyl_roots		rt;
-	t_f32			t;
+	t_f64			t;
 
 	if (!cyl_side_setup(&ctx, cyl, r))
 		return (0);
@@ -56,7 +56,7 @@ static
 void	side_normal(t_cylinder const *cy, t_v3 const *p, t_v3 *out_n)
 {
 	t_v3	v;
-	t_f32	k;
+	t_f64	k;
 
 	v3_sub(p, &cy->pos, &v);
 	k = v3_dot(&v, &cy->ang);
@@ -68,7 +68,7 @@ void	side_normal(t_cylinder const *cy, t_v3 const *p, t_v3 *out_n)
 
 static
 void	fill_hit(t_cylinder_intersection_desc const *desc,
-			t_u32 best_idx, t_f32 closest)
+			t_u32 best_idx, t_f64 closest)
 {
 	desc->hit->dist = closest;
 	desc->hit->col = desc->cylinders[best_idx].col;
@@ -81,10 +81,10 @@ void	fill_hit(t_cylinder_intersection_desc const *desc,
 
 void	intersect_cylinder_side(t_cylinder_intersection_desc const *desc)
 {
-	t_f32	closest;
+	t_f64	closest;
 	t_u32	best_idx;
 	t_u32	i;
-	t_f32	d;
+	t_f64	d;
 
 	closest = desc->dist_max;
 	best_idx = ~(t_u32)0;

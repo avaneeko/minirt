@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:26:44 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:26:44 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 struct s_sphere
 {
 	t_v3	pos;	/* Position in world space. */
-	t_f32	r;		/* Radius. */
+	t_f64	r;		/* Radius. */
 	t_v3	col;	/* Color. */
 };
 typedef struct s_sphere	t_sphere;

@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:38 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:23:38 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ struct s_plane_intersection_desc
 	t_plane const	*planes;
 	t_u32			plane_len;
 	t_ray			ray;
-	t_f32			dist_min;
-	t_f32			dist_max;
+	t_f64			dist_min;
+	t_f64			dist_max;
 	t_hit			*hit;
 };
 typedef struct s_plane_intersection_desc	t_plane_intersection_desc;

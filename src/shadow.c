@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shadow.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:15:51 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/23 14:45:39 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	is_in_shadow(t_hit const *hit, t_shading_desc const *desc)
 	t_ray	shadow_ray;
 	t_hit	shadow_hit;
 	t_v3	dir_to_light;
-	t_f32	dist_to_light;
+	t_f64	dist_to_light;
 
 	shadow_ray.pos = hit->pos;
 	shadow_ray.pos.x += hit->norm.x * 1e-4f;

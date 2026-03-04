@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:24:00 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:24:00 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:19:46 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ struct s_cylinder
 {
 	t_v3	pos;	/* Position.	*/
 	t_v3	ang;	/* Angles.		*/
-	t_f32	r;		/* Radius.		*/
-	t_f32	h;		/* Height.		*/
+	t_f64	r;		/* Radius.		*/
+	t_f64	h;		/* Height.		*/
 	t_v3	col;	/* Color.		*/
 };
 typedef struct s_cylinder	t_cylinder;

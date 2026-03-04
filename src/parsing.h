@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:10:45 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/19 16:03:31 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:21:54 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			parse_cylinder(t_world *world, char const *line);
 char		**ft_split(char const *s, char c);
 
 // number_utils.c
-int			parse_number(char const *str, float *out);
+int			parse_number(char const *str, t_f64 *out);
 
 // parse_error.c
 int			parse_error(char *s, char **toks);

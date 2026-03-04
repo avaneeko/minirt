@@ -3,13 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   number_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinzhang <jinzhang@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/18 18:14:30 by jinzhang          #+#    #+#             */
-/*   Updated: 2026/02/18 18:22:39 by jinzhang         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:22:13 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minitypes.h"
 #include "parsing.h"
 #include <stdlib.h>
 
@@ -65,13 +66,13 @@ static int	add_integer(const char *str, int *i, double *integer)
 	return (0);
 }
 
-int	parse_number(const char *str, float *out)
+int	parse_number(const char *str, t_f64 *out)
 {
 	int		i;
 	int		sign;
-	double	div;
-	double	integer;
-	double	decimal;
+	t_f64	div;
+	t_f64	integer;
+	t_f64	decimal;
 
 	i = 0;
 	if (!str || !out)

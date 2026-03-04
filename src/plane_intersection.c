@@ -6,7 +6,7 @@
 /*   By: losypenk <losypenk@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 14:23:42 by losypenk          #+#    #+#             */
-/*   Updated: 2026/02/16 14:23:42 by losypenk         ###   ########.fr       */
+/*   Updated: 2026/03/04 10:22:36 by losypenk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static
 void	fill_hit(t_plane_intersection_desc const *desc, t_u32 best_idx,
-			t_f32 closest)
+			t_f64 closest)
 {
 	desc->hit->dist = closest;
 	desc->hit->col = desc->planes[best_idx].col;
@@ -28,19 +28,19 @@ void	fill_hit(t_plane_intersection_desc const *desc, t_u32 best_idx,
 }
 
 /*
-t_f32 dist_min is distl[0]
-t_f32 dist_max is distl[1]
+t_f64 dist_min is distl[0]
+t_f64 dist_max is distl[1]
 */
 static
-int	ray_intersect_plane_dist(t_plane const *pl, t_ray const *r, t_f32 distl[2],
-		t_f32 *out_dist)
+int	ray_intersect_plane_dist(t_plane const *pl, t_ray const *r, t_f64 distl[2],
+		t_f64 *out_dist)
 {
-	t_f32	denom;
+	t_f64	denom;
 	t_v3	p0_minus_o;
-	t_f32	dist;
+	t_f64	dist;
 
 	denom = v3_dot(&pl->ang, &r->dir);
-	if (fabsf(denom) < 1e-6f)
+	if (fabs(denom) < 1e-6f)
 		return (0);
 	v3_sub(&pl->pos, &r->pos, &p0_minus_o);
 	dist = v3_dot(&pl->ang, &p0_minus_o) / denom;
@@ -52,10 +52,10 @@ int	ray_intersect_plane_dist(t_plane const *pl, t_ray const *r, t_f32 distl[2],
 
 void	intersect_planes(t_plane_intersection_desc const *desc)
 {
-	t_f32	closest;
+	t_f64	closest;
 	t_u32	best_idx;
 	t_u32	i;
-	t_f32	d;
+	t_f64	d;
 
 	closest = desc->dist_max;
 	best_idx = ~(t_u32)0;
@@ -65,7 +65,7 @@ void	intersect_planes(t_plane_intersection_desc const *desc)
 		if (ray_intersect_plane_dist(
 				&desc->planes[i],
 				&desc->ray,
-				(float []){desc->dist_min, closest},
+				(t_f64 []){desc->dist_min, closest},
 			&d))
 		{
 			closest = d;
